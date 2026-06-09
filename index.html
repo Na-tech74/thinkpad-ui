@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThinkPad Shop</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.min.css">
+    <!--icons-->
+    <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css">
+    <!-- css -->
+    <link rel="stylesheet" href="./assets/style/header.css">
+    <link rel="stylesheet" href="./assets/style/index.css">
+    <link rel="stylesheet" href="./assets/style/footer.css">
+</head>
+<script>
+    // Mở sidebar
+    function openSidebar() {
+        document.getElementById('sidebar').classList.add('active');
+        document.getElementById('sidebarOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Đóng sidebar
+    function closeSidebar() {
+        document.getElementById('sidebar').classList.remove('active');
+        document.getElementById('sidebarOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+</script>
+
+<body>
+    <!--Header-->
+    <header class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+        <div class="container">
+
+            <!-- Logo -->
+            <a class="navbar-brand fw-bold text-danger" href="./index.html">
+                ThinkPad <span class="text-light">Shop</span>
+            </a>
+
+            <!-- Hamburger -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu -->
+            <div class="collapse navbar-collapse" id="navbarMenu">
+
+                <!-- Menu giữa -->
+                <script>
+                    const mainMenu = document.getElementById("mainMenu");
+
+                    menuItems.forEach((item) => {
+                        mainMenu.innerHTML += `
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link fw-semibold" href="${item.href}">
+                                        ${item.text}
+                                    </a>
+                                </li>
+                            `;
+                    });
+                </script>
+
+                <!-- Bên phải -->
+                <div class="d-flex align-items-center gap-2">
+
+                    <!-- Tài khoản -->
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle text-light px-2" href="#" role="button"
+                            data-bs-toggle="dropdown">
+
+                            <i class="bi bi-person fs-6"></i>
+                            Tài khoản
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="./login.html">Đăng nhập</a></li>
+                            <li><a class="dropdown-item" href="./register.html">Đăng ký</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger" href="#">Đăng xuất</a></li>
+                        </ul>
+
+                    </div>
+
+                    <!-- Giỏ hàng -->
+                    <a href="./cart.html" class="nav-link text-light px-2">
+                        <i class="bi bi-cart3 fs-6"></i>
+                        Giỏ hàng
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <main>
+        <!--Carousel-->
+        <section class="container-fluid carousel-wrapper">
+            <div id="carouselExampleCaptions" class="carousel slide carousel-fade shadow-lg rounded overflow-hidden">
+                <div class="carousel-indicators" id="carousel-indicators"></div>
+                <div class="carousel-inner" id="carousel-inner"></div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </section>
+
+        <script src="./data/homedb.js"></script>
+        <script>
+            // --- CAROUSEL ---
+            const indicators = document.getElementById("carousel-indicators");
+            const carouselInner = document.getElementById("carousel-inner");
+
+            carouselData.forEach((item, index) => {
+                // Indicator
+                indicators.innerHTML += `
+                    <button type="button"
+                        data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide-to="${index}"
+                        class="${item.active ? 'active' : ''}"
+                        ${item.active ? 'aria-current="true"' : ''}
+                        aria-label="Slide ${index + 1}">
+                    </button>
+                `;
+                // Slide
+                carouselInner.innerHTML += `
+                    <div class="carousel-item ${item.active ? 'active' : ''}">
+                        <img src="${item.image}" class="d-block w-100" alt="${item.title}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>${item.title}</h5>
+                            <p>${item.subtitle}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        </script>
+        <!--category product -->
+        <section class="container mt-5">
+
+            <div class="text-center mb-4">
+                <h3 class="fw-bold">Danh mục sản phẩm</h3>
+                <p class="text-muted">
+                    Lựa chọn dòng ThinkPad phù hợp với nhu cầu của bạn
+                </p>
+            </div>
+
+            <div id="categorise-data" class="row g-4"> </div>
+
+        </section>
+
+        <script src="./data/homedb.js"></script>
+
+        <script>
+            const categoryContainer = document.getElementById("categorise-data");
+
+            categorise.forEach((item) => {
+                categoryContainer.innerHTML += `
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="${item.image}" class="card-img-top" alt="${item.title}">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">${item.title}</h5>
+                                <p class="card-text text-muted">
+                                    ${item.content}
+                                </p>
+                                <a href="#" class="btn btn-danger">
+                                    Xem thêm
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        </script>
+        <!--Featured Products-->
+        <section class="container mt-5">
+            <div class="text-center mb-4">
+                <h3 class="fw-bold">Sản phẩm được yêu thích nhất</h3>
+                <p class="text-muted">Các dòng ThinkPad phù hợp với mọi yêu cầu của khách hàng</p>
+            </div>
+
+            <div class="row g-4" id="featured-products"></div>
+
+            <!--Pagination-->
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+            </nav>
+        </section>
+
+        <script>
+            // --- SẢN PHẨM YÊU THÍCH ---
+            const featuredContainer = document.getElementById("featured-products");
+
+            featuredProducts.forEach((item) => {
+                featuredContainer.innerHTML += `
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="${item.image}" class="card-img-top" alt="${item.name}">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">${item.name}</h5>
+                                <p class="text-muted small">${item.specs}</p>
+                                <h5 class="text-danger fw-bold">${item.price}</h5>
+                                <a href="${item.link}" class="btn btn-danger w-100">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        </script>
+
+        <!-- CTA1 -->
+        <section class="container mt-5">
+
+            <div class="cta-section-1">
+
+                <div class="row align-items-center g-4">
+
+                    <!-- Nội dung -->
+                    <div class="col-lg-6">
+
+                        <h2 class="fw-bold mb-3">
+                            ThinkPad - Đẳng cấp doanh nhân
+                        </h2>
+
+                        <p class="lead text-secondary mb-4">
+                            Khám phá những dòng ThinkPad mới nhất với hiệu năng mạnh mẽ,
+                            độ bền chuẩn quân đội và thiết kế chuyên nghiệp.
+                        </p>
+
+                        <div class="d-flex gap-3 flex-wrap">
+                            <a href="./products.html" class="btn btn-danger btn-lg">
+                                Xem sản phẩm
+                            </a>
+
+                            <a href="./contact.html" class="btn btn-outline-dark btn-lg">
+                                Tư vấn ngay
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Video -->
+                    <div class="col-lg-6">
+                        <video autoplay muted loop playsinline>
+                            <source src="./assets/image/CTA.mp4" type="video/mp4">
+                        </video>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Banner -->
+        <section class="container mt-5">
+            <div class="row g-4" id="banner-section"></div>
+        </section>
+
+        <script>
+            // --- BANNER 3 CỘT ---
+            const bannerContainer = document.getElementById("banner-section");
+
+            bannerData.forEach((item) => {
+                bannerContainer.innerHTML += `
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="banner-card">
+                            <img src="${item.image}" alt="${item.title}">
+                            <div class="banner-content">
+                                <h3>${item.title}</h3>
+                                <p>${item.desc}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        </script>
+
+        <!--CTA2-->
+        <section class="container-fluid mt-5">
+            <div class="cta-section-2">
+                <div class="banner-cta-2">
+                    <video autoplay muted loop playsinline>
+                        <source src="./assets/image/CTA2.mp4" type="video/mp4">
+                    </video>
+                    <div class="banner-content">
+                        <h1 class="fw-bold">
+                            Khám Phá Thế Giới ThinkPad
+                        </h1>
+
+                        <p class="lead">
+                            Hiệu năng mạnh mẽ, thiết kế bền bỉ và công nghệ tiên tiến dành cho học tập, làm việc và
+                            sáng
+                            tạo.
+                        </p>
+
+                        <a href="./products.html" class="btn btn-danger btn-lg">
+                            Mua Ngay
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-black text-light pt-5 pb-3 mt-5">
+
+        <div class="container">
+
+            <div class="row g-4">
+
+                <!-- Brand -->
+                <div class="col-lg-4 col-md-6">
+
+                    <h3 class="fw-bold text-danger">
+                        ThinkPad <span class="text-light">Shop</span>
+                    </h3>
+
+                    <p class="text-secondary mt-3">
+                        Chuyên cung cấp các dòng ThinkPad chính hãng với chất lượng
+                        cao, bảo hành uy tín và dịch vụ hỗ trợ tận tâm.
+                    </p>
+
+                    <div class="d-flex gap-3 mt-4">
+
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-github"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- Menu -->
+                <div class="col-lg-2 col-md-6">
+
+                    <h5 class="footer-title">
+                        Điều hướng
+                    </h5>
+
+                    <ul class="list-unstyled">
+                        <li><a href="./index.html" class="footer-link">Trang chủ</a></li>
+                        <li><a href="./products.html" class="footer-link">Sản phẩm</a></li>
+                        <li><a href="./about.html" class="footer-link">Giới thiệu</a></li>
+                        <li><a href="./contact.html" class="footer-link">Liên hệ</a></li>
+                    </ul>
+
+                </div>
+
+                <!-- Support -->
+                <div class="col-lg-3 col-md-6">
+
+                    <h5 class="footer-title">
+                        Hỗ trợ khách hàng
+                    </h5>
+
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Chính sách bảo hành</a></li>
+                        <li><a href="#" class="footer-link">Đổi trả sản phẩm</a></li>
+                        <li><a href="#" class="footer-link">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#" class="footer-link">Câu hỏi thường gặp</a></li>
+                    </ul>
+
+                </div>
+
+                <!-- Contact -->
+                <div class="col-lg-3 col-md-6">
+
+                    <h5 class="footer-title">
+                        Liên hệ
+                    </h5>
+
+                    <p>
+                        <i class="bi bi-geo-alt-fill text-danger"></i>
+                        TP. Hồ Chí Minh, Việt Nam
+                    </p>
+
+                    <p>
+                        <i class="bi bi-telephone-fill text-danger"></i>
+                        0123 456 789
+                    </p>
+
+                    <p>
+                        <i class="bi bi-envelope-fill text-danger"></i>
+                        support@thinkpadshop.com
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr class="footer-divider">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="copyright mb-0">
+                        © 2026 ThinkPad Shop. Design by Nam Nguyễn.
+                    </p>
+                </div>
+
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <span class="text-secondary">
+                        Built with Bootstrap 5
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+    <script src="./bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

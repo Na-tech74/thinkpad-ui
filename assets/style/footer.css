@@ -1,0 +1,105 @@
+/* ============================================
+   FOOTER - ThinkPad Style
+   ============================================ */
+
+footer {
+    background: #0d0d0d;
+    border-top: 3px solid #cc0000;
+    font-size: 0.9rem;
+}
+
+.footer-title {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 14px;
+    font-size: 1rem;
+}
+
+.footer-link {
+    color: #999;
+    text-decoration: none;
+    display: block;
+    padding: 5px 0;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+.footer-link:hover {
+    color: #cc0000;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #1a1a1a;
+    color: #999;
+    border-radius: 50%;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.social-icon:hover {
+    background: #cc0000;
+    color: #fff;
+}
+
+.footer-divider {
+    border-color: #222;
+    margin: 28px 0 18px;
+}
+
+.copyright {
+    color: #777;
+    font-size: 0.85rem;
+}
+
+/* ===== Mobile < 768px ===== */
+@media (max-width: 767.98px) {
+    footer {
+        text-align: center;
+    }
+
+    .footer-title::after {
+        /* Nếu có pseudo element ở giữa */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .d-flex.gap-3 {
+        justify-content: center;
+    }
+}
+
+/* ===== Mobile nhỏ < 576px ===== */
+@media (max-width: 575.98px) {
+    footer {
+        font-size: 0.85rem;
+        padding-top: 30px;
+    }
+
+    .footer-title {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+
+    .footer-link {
+        font-size: 0.85rem;
+        padding: 4px 0;
+    }
+
+    .copyright {
+        font-size: 0.8rem;
+    }
+
+    .footer-divider {
+        margin: 20px 0 14px;
+    }
+}

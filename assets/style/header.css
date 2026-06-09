@@ -1,0 +1,188 @@
+/* ============================================
+   HEADER - ThinkPad Style
+   ============================================ */
+
+.navbar {
+    border-bottom: 2px solid #cc0000;
+    padding: 10px 0;
+    z-index: 1030;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* ---- Nút hamburger custom ---- */
+.btn-sidebar {
+    background: none;
+    border: none;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+.btn-sidebar span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Menu desktop */
+.navbar .nav-link {
+    color: #ccc !important;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    transition: color 0.2s;
+    border-radius: 4px;
+}
+.navbar .nav-link:hover {
+    color: #fff !important;
+    background: rgba(255,255,255,0.06);
+}
+
+.dropdown-menu {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-top: 2px solid #cc0000;
+    padding: 6px 0;
+}
+.dropdown-item {
+    color: #bbb;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    transition: all 0.2s;
+}
+.dropdown-item:hover {
+    background: #222;
+    color: #cc0000;
+}
+.dropdown-divider {
+    border-color: #333;
+}
+
+/* ============================================
+   SIDEBAR MOBILE
+   ============================================ */
+
+/* Overlay */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    background: #0a0a0a;
+    z-index: 1050;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar.active {
+    transform: translateX(0);
+}
+
+/* Header sidebar */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid #1a1a1a;
+}
+.sidebar-header .navbar-brand {
+    font-size: 1.2rem;
+}
+.btn-close-sidebar {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+}
+.btn-close-sidebar:hover {
+    color: #fff;
+}
+
+/* Menu */
+.sidebar-menu {
+    list-style: none;
+    padding: 12px 0;
+    margin: 0;
+}
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+}
+.sidebar-link i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+.sidebar-link:hover,
+.sidebar-link.active {
+    background: #111;
+    color: #fff;
+    border-left-color: #cc0000;
+    padding-left: 28px;
+}
+.sidebar-link.active {
+    color: #cc0000;
+}
+
+/* Divider */
+.sidebar-divider {
+    height: 1px;
+    background: #1a1a1a;
+    margin: 8px 20px;
+}
+
+/* Ẩn sidebar trên desktop */
+@media (min-width: 992px) {
+    .sidebar,
+    .sidebar-overlay {
+        display: none;
+    }
+}
+
+/* Ẩn nút hamburger trên desktop */
+@media (min-width: 992px) {
+    .btn-sidebar {
+        display: none;
+    }
+}
