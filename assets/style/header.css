@@ -172,6 +172,42 @@
     margin: 8px 20px;
 }
 
+/* ===== Mobile navbar collapse ===== */
+@media (max-width: 991.98px) {
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    .navbar-collapse {
+        background: #0d0d0d;
+        padding: 16px;
+        border-radius: 0 0 12px 12px;
+        margin-top: 10px;
+        border-top: 2px solid #cc0000;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+    .navbar-collapse .navbar-nav {
+        text-align: center;
+    }
+    .navbar-collapse .nav-link {
+        padding: 12px 16px;
+        border-bottom: 1px solid #1a1a1a;
+        font-size: 1rem;
+    }
+
+    .navbar .d-flex.align-items-center.gap-2 {
+        gap: 4px !important;
+    }
+    .navbar .d-flex .nav-link {
+        padding: 6px 8px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+    .navbar .d-flex .dropdown-menu {
+        position: absolute !important;
+    }
+}
+
 /* Ẩn sidebar trên desktop */
 @media (min-width: 992px) {
     .sidebar,
@@ -184,5 +220,16 @@
 @media (min-width: 992px) {
     .btn-sidebar {
         display: none;
+    }
+}
+
+/* ===== Mobile nhỏ < 400px ===== */
+@media (max-width: 400px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    .navbar .nav-link {
+        font-size: 0.85rem;
+        padding: 6px 10px;
     }
 }

@@ -1,0 +1,132 @@
+/* Detail page */
+
+.btn-danger {
+    background: #cc0000;
+    border-color: #cc0000;
+    padding: 8px 20px;
+    font-size: 0.85rem;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-danger:hover {
+    background: #990000;
+    border-color: #990000;
+    transform: translateY(-2px);
+}
+
+.btn-outline-danger {
+    border-color: #cc0000;
+    color: #cc0000;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-outline-danger:hover {
+    background: #cc0000;
+    color: #fff;
+    border-color: #cc0000;
+    transform: translateY(-2px);
+}
+
+.detail-wrapper {
+    padding: 100px 16px 40px;
+}
+
+.breadcrumb {
+    background: transparent;
+    padding: 8px 0;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+}
+
+.breadcrumb a {
+    color: #cc0000;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #555;
+}
+
+.detail-wrapper .current-price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #cc0000;
+    white-space: nowrap;
+}
+
+.detail-wrapper .old-price {
+    font-size: 1.1rem;
+    color: #aaa;
+    text-decoration: line-through;
+    margin-right: 12px;
+    white-space: nowrap;
+}
+
+.quantity-control {
+    height: 42px;
+}
+
+.quantity-control .btn-link {
+    text-decoration: none;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.detail-wrapper .carousel-indicators {
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.detail-wrapper .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.7);
+    border: none;
+    opacity: 1;
+    margin: 0 3px;
+}
+
+.detail-wrapper .carousel-indicators button.active {
+    background: #cc0000;
+    width: 12px;
+    height: 12px;
+}
+
+.detail-wrapper .img-thumbnail {
+    border-color: #ddd;
+    border-radius: 6px;
+    transition: border-color 0.2s;
+}
+
+.detail-wrapper .img-thumbnail:hover {
+    border-color: #cc0000;
+}
+
+@media (max-width: 767.98px) {
+    .detail-wrapper {
+        padding: 80px 12px 24px;
+    }
+    .detail-wrapper .current-price {
+        font-size: 1.4rem;
+    }
+    .detail-wrapper .old-price {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .detail-wrapper {
+        padding: 76px 10px 20px;
+    }
+    .detail-wrapper h2 {
+        font-size: 1.2rem;
+    }
+    .detail-wrapper .current-price {
+        font-size: 1.2rem;
+    }
+}

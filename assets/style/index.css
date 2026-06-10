@@ -2,35 +2,91 @@
    TRANG CHỦ - ThinkPad Style
    ============================================ */
 
+/* Breadcrumb */
+.page-breadcrumb {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding-top: 72px;
+}
+
+@media (max-width: 575.98px) {
+    .page-breadcrumb {
+        padding-top: 60px;
+    }
+}
+
+.breadcrumb {
+    background: transparent;
+    padding: 8px 0;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+}
+
+.breadcrumb a {
+    color: #cc0000;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #555;
+}
+
 /* Carousel */
 .carousel-wrapper {
-    margin-top: 72px;
     padding: 0;
 }
+.carousel-item {
+    position: relative;
+}
+.carousel-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+    pointer-events: none;
+}
 .carousel-item img {
-    height: 500px;
+    height: 520px;
     object-fit: cover;
 }
 .carousel-caption {
-    background: rgba(0,0,0,0.55);
-    padding: 16px 20px;
-    border-radius: 4px;
-    bottom: 30px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    padding: 20px 28px;
+    border-radius: 12px;
+    bottom: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid rgba(255,255,255,0.08);
 }
 .carousel-caption h5 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 6px;
 }
 .carousel-caption p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin-bottom: 0;
+    opacity: 0.9;
 }
-.carousel-indicators button {
-    background-color: #cc0000 !important;
-    width: 10px;
-    height: 10px;
+.carousel-indicators {
+    display: none;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(204,0,0,0.7);
     border-radius: 50%;
+    padding: 24px;
+    background-size: 50%;
+    transition: background-color 0.3s;
+}
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: rgba(204,0,0,1);
 }
 
 /* Section title */
@@ -42,49 +98,90 @@ section h3.fw-bold {
 
 /* Cards */
 .card {
-    border: 1px solid #eee !important;
-    border-radius: 6px;
-    transition: box-shadow 0.2s;
+    border: none !important;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .card:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
 }
 .card-img-top {
     height: 200px;
     object-fit: contain;
-    padding: 20px;
+    padding: 24px;
     background: #fafafa;
+    transition: transform 0.4s ease;
+}
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+.card-body {
+    padding: 20px;
 }
 .card-title {
     font-size: 1rem;
-    font-weight: 600;
-    color: #222;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+.card-text {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.5;
 }
 .text-danger {
     color: #cc0000 !important;
 }
 
 /* Buttons */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
 .btn-danger {
     background: #cc0000;
     border-color: #cc0000;
-    font-weight: 500;
     padding: 8px 20px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgba(204,0,0,0.25);
+}
+
+.btn-sm {
+    padding: 5px 12px !important;
+    font-size: 0.78rem !important;
 }
 .btn-danger:hover {
     background: #990000;
     border-color: #990000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(204,0,0,0.35);
 }
-.btn-outline-dark {
-    border: 1px solid #333;
-    color: #333;
-    font-weight: 500;
-    font-size: 0.9rem;
+.btn-danger:active {
+    transform: translateY(0);
 }
-.btn-outline-dark:hover {
-    background: #333;
+.btn-outline-danger {
+    border: 2px solid #cc0000;
+    color: #cc0000;
+    font-size: 0.85rem;
+    padding: 8px 20px;
+    transition: background 0.2s, transform 0.2s;
+}
+.btn-outline-danger:hover {
+    background: #cc0000;
     color: #fff;
+    border-color: #cc0000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(204,0,0,0.25);
+}
+.btn-lg {
+    padding: 12px 32px;
+    font-size: 1rem;
 }
 
 /* Pagination */
@@ -182,16 +279,25 @@ section h3.fw-bold {
     text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
 }
 
-/* ===== Mobile < 992px ===== */
+/* ===== Tablet < 992px ===== */
 @media (max-width: 991.98px) {
     .carousel-item img {
         height: 380px;
+    }
+    .carousel-caption {
+        max-width: 500px;
+        padding: 16px 22px;
     }
     .carousel-caption h5 {
         font-size: 1.2rem;
     }
     .carousel-caption p {
         font-size: 0.85rem;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        padding: 14px;
+        background-size: 45%;
     }
 
     .cta-section-1 {
@@ -210,6 +316,11 @@ section h3.fw-bold {
     .banner-cta-2 .lead {
         font-size: 0.85rem;
     }
+
+    section.container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
 }
 
 /* ===== Mobile < 768px ===== */
@@ -217,24 +328,47 @@ section h3.fw-bold {
     .carousel-item img {
         height: 300px;
     }
+    .carousel-item::after {
+        background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 45%);
+    }
     .carousel-caption {
-        bottom: 15px;
-        padding: 12px 16px;
+        bottom: 12px;
+        padding: 8px 12px;
+        max-width: 85%;
+        border-radius: 8px;
     }
     .carousel-caption h5 {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 2px;
     }
     .carousel-caption p {
-        font-size: 0.8rem;
-        display: none;
+        font-size: 0.75rem;
+        margin-bottom: 0;
+    }
+    .carousel-indicators button {
+        width: 8px;
+        height: 8px;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        padding: 10px;
+        background-size: 35%;
     }
 
     section h3.fw-bold {
         font-size: 1.2rem;
     }
+    section.container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 
     .card-img-top {
         height: 180px;
+        padding: 16px;
+    }
+    .card-body {
+        padding: 16px;
     }
 
     .cta-section-1 {
@@ -251,6 +385,11 @@ section h3.fw-bold {
     }
     .cta-section-1 .d-flex {
         justify-content: center;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .cta-section-1 .btn-lg {
+        width: 100%;
     }
 
     .banner-card img {
@@ -258,6 +397,9 @@ section h3.fw-bold {
     }
     .banner-content h3 {
         font-size: 1rem;
+    }
+    .banner-content {
+        padding: 14px;
     }
 
     .banner-cta-2 {
@@ -273,49 +415,110 @@ section h3.fw-bold {
         font-size: 0.85rem;
         padding: 8px 18px;
     }
+
+    .pagination {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .page-link {
+        padding: 5px 12px;
+        font-size: 0.85rem;
+    }
 }
 
 /* ===== Mobile nhỏ < 576px ===== */
 @media (max-width: 575.98px) {
     .carousel-wrapper {
-        margin-top: 66px;
+        margin-top: 0;
     }
     .carousel-item img {
-        height: 250px;
+        height: 220px;
     }
     .carousel-caption {
-        bottom: 10px;
-        padding: 8px 12px;
+        bottom: 8px;
+        padding: 6px 10px;
+        border-radius: 6px;
     }
     .carousel-caption h5 {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        margin-bottom: 0;
     }
     .carousel-caption p {
-        display: none;
+        font-size: 0.75rem;
+        margin-bottom: 0;
+    }
+    .carousel-indicators button {
+        width: 7px;
+        height: 7px;
     }
 
-    .carousel-indicators button {
-        width: 8px;
-        height: 8px;
+    section.container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    section h3.fw-bold {
+        font-size: 1.1rem;
+    }
+    section .text-muted {
+        font-size: 0.85rem;
+    }
+
+    .card-img-top {
+        height: 160px;
+        padding: 12px;
+    }
+    .card-title {
+        font-size: 0.9rem;
     }
 
     .btn-danger,
     .btn-outline-dark {
         width: 100%;
         margin-bottom: 8px;
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+
+    .banner-card img {
+        height: 160px;
+    }
+    .banner-content h3 {
+        font-size: 0.95rem;
+    }
+    .banner-content p {
+        font-size: 0.8rem;
     }
 
     .banner-cta-2 {
-        height: 220px;
+        height: 200px;
     }
     .banner-cta-2 h1 {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     .banner-cta-2 .lead {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
     }
     .banner-cta-2 .btn {
-        font-size: 0.8rem;
-        padding: 6px 16px;
+        font-size: 0.75rem;
+        padding: 6px 14px;
+    }
+}
+
+/* ===== Mobile siêu nhỏ < 400px ===== */
+@media (max-width: 400px) {
+    .carousel-item img {
+        height: 180px;
+    }
+    .carousel-caption h5 {
+        font-size: 0.75rem;
+    }
+    section h3.fw-bold {
+        font-size: 1rem;
+    }
+    .card-img-top {
+        height: 140px;
+    }
+    .banner-card img {
+        height: 140px;
     }
 }

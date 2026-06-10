@@ -8,6 +8,11 @@ footer {
     font-size: 0.9rem;
 }
 
+footer h3.fw-bold {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
 .footer-title {
     color: #fff;
     font-weight: 600;
@@ -34,7 +39,7 @@ footer {
     width: 36px;
     height: 36px;
     background: #1a1a1a;
-    color: #999;
+    color: #fff;
     border-radius: 50%;
     font-size: 1rem;
     text-decoration: none;
@@ -55,16 +60,42 @@ footer {
     font-size: 0.85rem;
 }
 
+footer p i {
+    width: 20px;
+    text-align: center;
+    margin-right: 6px;
+}
+
+/* ===== Tablet + Mobile < 992px ===== */
+@media (max-width: 991.98px) {
+    footer .row.g-4 > div {
+        margin-bottom: 24px;
+    }
+    footer .row.g-4 > div:last-child {
+        margin-bottom: 0;
+    }
+}
+
 /* ===== Mobile < 768px ===== */
 @media (max-width: 767.98px) {
     footer {
         text-align: center;
     }
 
-    .footer-title::after {
-        /* Nếu có pseudo element ở giữa */
-        left: 50%;
-        transform: translateX(-50%);
+    footer .row.g-4 > div {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #1a1a1a;
+    }
+    footer .row.g-4 > div:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: none;
+    }
+
+    .footer-title {
+        margin-bottom: 12px;
+        font-size: 1rem;
     }
 
     .social-icon {
@@ -76,30 +107,62 @@ footer {
     .d-flex.gap-3 {
         justify-content: center;
     }
+
+    footer p i {
+        margin-right: 4px;
+    }
+
+    .copyright {
+        font-size: 0.8rem;
+    }
 }
 
 /* ===== Mobile nhỏ < 576px ===== */
 @media (max-width: 575.98px) {
     footer {
         font-size: 0.85rem;
-        padding-top: 30px;
+        padding-top: 24px;
+        padding-bottom: 16px;
+    }
+
+    footer .row.g-4 > div {
+        padding-bottom: 16px;
+        margin-bottom: 16px;
     }
 
     .footer-title {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         margin-bottom: 10px;
     }
 
     .footer-link {
         font-size: 0.85rem;
-        padding: 4px 0;
+        padding: 3px 0;
     }
 
     .copyright {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
     }
 
     .footer-divider {
-        margin: 20px 0 14px;
+        margin: 16px 0 12px;
+    }
+}
+
+/* ===== Mobile siêu nhỏ < 400px ===== */
+@media (max-width: 400px) {
+    footer {
+        font-size: 0.78rem;
+    }
+    .footer-title {
+        font-size: 0.85rem;
+    }
+    .social-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+    footer p i {
+        margin-right: 6px;
     }
 }

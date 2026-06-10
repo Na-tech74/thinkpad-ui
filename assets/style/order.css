@@ -1,0 +1,97 @@
+.bc-top {
+    padding-top: 76px !important;
+}
+
+.breadcrumb {
+    background: transparent;
+    padding: 8px 0;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+}
+
+.breadcrumb a {
+    color: #cc0000;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #555;
+}
+
+.btn-danger {
+    background: #cc0000;
+    border-color: #cc0000;
+    padding: 8px 20px;
+    font-size: 0.85rem;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-danger:hover {
+    background: #990000;
+    border-color: #990000;
+    transform: translateY(-2px);
+}
+
+.btn-outline-danger {
+    border-color: #cc0000;
+    color: #cc0000;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-outline-danger:hover {
+    background: #cc0000;
+    color: #fff;
+    border-color: #cc0000;
+    transform: translateY(-2px);
+}
+
+.order-wrapper {
+    padding: 20px 16px 60px;
+}
+
+.order-success-icon {
+    font-size: 4rem;
+    color: #28a745;
+    line-height: 1;
+}
+
+.order-card {
+    border-radius: 12px;
+}
+
+.order-card .card-body {
+    padding: 20px;
+}
+
+.order-card table td {
+    padding: 6px 0;
+    vertical-align: middle;
+}
+
+@media (max-width: 767.98px) {
+    .bc-top {
+        padding-top: 68px !important;
+    }
+    .order-wrapper {
+        padding: 12px 10px 40px;
+    }
+    .order-success-icon {
+        font-size: 3rem;
+    }
+    .order-card .card-body {
+        padding: 14px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .bc-top {
+        padding-top: 62px !important;
+    }
+    .order-card .card-body {
+        padding: 10px;
+    }
+}

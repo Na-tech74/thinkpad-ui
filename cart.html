@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThinkPad Shop</title>
+
+    <link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/style/header.css">
+    <link rel="stylesheet" href="./assets/style/footer.css">
+    <link rel="stylesheet" href="./assets/style/cart.css">
+</head>
+<body>
+    <!--Header-->
+    <header class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-danger" href="./index.html">
+                ThinkPad <span class="text-light">Shop</span>
+            </a>
+
+            <div class="d-flex align-items-center gap-2 ms-auto order-lg-3">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle text-light px-2" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person fs-6"></i> <span class="d-none d-sm-inline">Tài khoản</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="./login.html">Đăng nhập</a></li>
+                        <li><a class="dropdown-item" href="./register.html">Đăng ký</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="logoutUser();location.reload();return false;">Đăng xuất</a></li>
+                    </ul>
+                </div>
+                <a href="./cart.html" class="nav-link text-light px-2 position-relative">
+                    <i class="bi bi-cart3 fs-6"></i>
+                    <span class="badge bg-danger rounded-pill position-absolute cart-badge" style="font-size:0.65rem;top:-2px;right:-4px;display:none;">0</span>
+                    <span class="d-none d-sm-inline ms-1">Giỏ hàng</span>
+                </a>
+            </div>
+
+            <button class="navbar-toggler order-lg-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse order-lg-2" id="navbarMenu">
+                <ul class="navbar-nav mx-auto" id="mainMenu"></ul>
+                <script src="./data/homedb.js"></script>
+                <script>
+                    const mainMenu = document.getElementById("mainMenu");
+                    menuItems.forEach((item) => {
+                        mainMenu.innerHTML += `
+                            <li class="nav-item mx-2">
+                                <a class="nav-link fw-semibold" href="${item.href}">${item.text}</a>
+                            </li>
+                        `;
+                    });
+                    updateCartBadge();
+                    if (isLoggedIn()) {
+                        const dd = document.querySelector('.dropdown .dropdown-toggle');
+                        if (dd) dd.innerHTML = '<i class="bi bi-person-check fs-6"></i> <span class="d-none d-sm-inline">Tài khoản</span>';
+                    }
+                </script>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container py-2 bc-top">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="./index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Giỏ hàng</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="cart-wrapper" id="cart-container"></div>
+    </main>
+
+    <script>
+        const cartContainer = document.getElementById("cart-container");
+
+        let cartItems = getCart();
+
+        function renderCart() {
+            const isEmpty = cartItems.length === 0;
+            const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+            const shipping = subtotal >= 50000000 ? 0 : 500000;
+            const total = subtotal + shipping;
+
+            const itemsHtml = cartItems.map((item, idx) => `
+                <div class="cart-item" data-index="${idx}">
+                    <div class="row align-items-center g-2">
+                        <div class="col-4 col-md-2">
+                            <img src="${item.image}" alt="${item.name}" class="img-fluid rounded-3" style="background:#fafafa;padding:10px;object-fit:contain;max-height:100px;">
+                        </div>
+                        <div class="col-8 col-md-4">
+                            <h6 class="fw-bold mb-1 small">${item.name}</h6>
+                            <p class="text-muted small mb-0">${item.specs}</p>
+                            <p class="text-danger fw-bold mt-1 mb-0 small">${fmtPrice(item.price)}</p>
+                        </div>
+                        <div class="col-6 col-md-3 mt-2 mt-md-0">
+                            <div class="qty-control d-flex align-items-center border rounded" style="max-width:110px;">
+                                <button class="btn btn-link text-dark px-2 py-1" onclick="changeQty(${idx}, -1)">−</button>
+                                <span class="px-2 fw-bold small flex-fill text-center" id="qty-${idx}">${item.qty}</span>
+                                <button class="btn btn-link text-dark px-2 py-1" onclick="changeQty(${idx}, 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-2 text-center mt-2 mt-md-0">
+                            <span class="fw-bold text-danger" id="item-total-${idx}">${fmtPrice(item.price * item.qty)}</span>
+                        </div>
+                        <div class="col-2 col-md-1 text-end mt-2 mt-md-0">
+                            <button class="btn btn-link text-danger p-0" onclick="removeItem(${idx})">
+                                <i class="bi bi-trash fs-6"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            cartContainer.innerHTML = `
+                <div class="container">
+                    <h4 class="fw-bold mb-4">Giỏ hàng <span class="text-muted fw-normal small">(${cartItems.length} sản phẩm)</span></h4>
+
+                    ${isEmpty ? `
+                        <div class="text-center py-5">
+                            <i class="bi bi-cart-x display-1 text-muted"></i>
+                            <p class="mt-3 text-muted">Giỏ hàng trống</p>
+                            <a href="./products.html" class="btn btn-danger">Mua sắm ngay</a>
+                        </div>
+                    ` : `
+                        <div class="row">
+                            <div class="col-lg-8">
+                                ${itemsHtml}
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="cart-summary card border-0 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="fw-bold mb-3">Tổng đơn hàng</h5>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="text-muted">Tạm tính</span>
+                                            <span class="fw-bold" id="summary-subtotal">${fmtPrice(subtotal)}</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="text-muted">Phí vận chuyển</span>
+                                            <span class="fw-bold" id="summary-shipping">${shipping === 0 ? 'Miễn phí' : fmtPrice(shipping)}</span>
+                                        </div>
+                                        ${shipping > 0 ? `<p class="text-muted small">Miễn phí ship khi đơn từ 50.000.000₫</p>` : ''}
+                                        <hr>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span class="fw-bold fs-5">Tổng cộng</span>
+                                            <span class="fw-bold fs-5 text-danger" id="summary-total">${fmtPrice(total)}</span>
+                                        </div>
+                                        <a href="./payment.html" class="btn btn-danger w-100 py-2">
+                                            <i class="bi bi-credit-card me-1"></i>Thanh toán
+                                        </a>
+                                        <a href="./products.html" class="btn btn-outline-danger w-100 mt-2">
+                                            <i class="bi bi-arrow-left me-1"></i>Tiếp tục mua sắm
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `}
+                </div>
+            `;
+        }
+
+        function updateSummary() {
+            const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+            const shipping = subtotal >= 50000000 ? 0 : 500000;
+            const total = subtotal + shipping;
+            document.getElementById('summary-subtotal').textContent = fmtPrice(subtotal);
+            document.getElementById('summary-shipping').textContent = shipping === 0 ? 'Miễn phí' : fmtPrice(shipping);
+            document.getElementById('summary-total').textContent = fmtPrice(total);
+        }
+
+        function changeQty(idx, delta) {
+            const item = cartItems[idx];
+            if (!item) return;
+            item.qty = Math.max(1, item.qty + delta);
+            document.getElementById(`qty-${idx}`).textContent = item.qty;
+            document.getElementById(`item-total-${idx}`).textContent = fmtPrice(item.price * item.qty);
+            updateSummary();
+            saveCart(cartItems);
+        }
+
+        function removeItem(idx) {
+            cartItems.splice(idx, 1);
+            saveCart(cartItems);
+            updateCartBadge();
+            renderCart();
+        }
+
+        renderCart();
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-black text-light pt-5 pb-3 mt-5" id="footer-container"></footer>
+    <script>
+        const footerContainer = document.getElementById("footer-container");
+        const footerHTML = `
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-6">
+                        <h3 class="fw-bold text-danger">
+                            ${footerData.brand.name} <span class="text-light">${footerData.brand.suffix}</span>
+                        </h3>
+                        <p class="text-secondary mt-3">${footerData.brand.desc}</p>
+                        <div class="d-flex gap-3 mt-4">
+                            ${footerData.brand.socials.map(s => `<a href="${s.href}" class="social-icon"><i class="bi ${s.icon}"></i></a>`).join('')}
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <h5 class="footer-title">${footerData.navigation.title}</h5>
+                        <ul class="list-unstyled">
+                            ${footerData.navigation.links.map(l => `<li><a href="${l.href}" class="footer-link">${l.text}</a></li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <h5 class="footer-title">${footerData.support.title}</h5>
+                        <ul class="list-unstyled">
+                            ${footerData.support.links.map(l => `<li><a href="${l.href}" class="footer-link">${l.text}</a></li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <h5 class="footer-title">${footerData.contact.title}</h5>
+                        ${footerData.contact.items.map(item => `<p><i class="bi ${item.icon} text-danger"></i> ${item.text}</p>`).join('')}
+                    </div>
+                </div>
+                <hr class="footer-divider">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="copyright mb-0">${footerData.copyright}</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                        <span class="text-secondary">${footerData.builtWith}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        footerContainer.innerHTML = footerHTML;
+    </script>
+    <script src="./bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

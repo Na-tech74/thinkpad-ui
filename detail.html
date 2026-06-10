@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css">
     <link rel="stylesheet" href="./assets/style/header.css">
     <link rel="stylesheet" href="./assets/style/footer.css">
-    <link rel="stylesheet" href="./assets/style/products.css">
+    <link rel="stylesheet" href="./assets/style/detail.css">
 </head>
 <body>
     <!--Header-->
@@ -65,80 +65,121 @@
     </header>
 
     <main>
-        <div class="products-wrapper">
-            <div class="container py-2">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="./index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Sản phẩm</li>
-                    </ol>
-                </nav>
-            </div>
-            <div id="products-container"></div>
-        </div>
+        <div class="detail-wrapper" id="detail-container"></div>
     </main>
     <script>
-        const productsContainer = document.getElementById("products-container");
+        const detailContainer = document.getElementById("detail-container");
 
-        function renderProducts(filter) {
-            const filtered = filter && filter !== 'Tất cả'
-                ? productsPageData.products.filter(p => p.series === filter)
-                : productsPageData.products;
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id');
+        const product = productsPageData.products.find(p => p.id === productId) || productsPageData.products[0];
 
-            return filtered.map(p => {
-                const badge = p.badge ? `<span class="badge bg-danger">${p.badge}</span>` : '';
-                const oldPrice = p.oldPrice && p.oldPrice !== '0'
-                    ? `<span class="old-price">${p.oldPrice}</span>` : '';
-                return `
-                    <div class="col-6 col-md-6 col-lg-3">
-                        <div class="product-card card h-100">
+        const badge = product.badge ? `<span class="badge bg-danger position-absolute top-0 start-0 m-3" style="z-index:5;">${product.badge}</span>` : '';
+        const oldPrice = product.oldPrice && product.oldPrice !== '0'
+            ? `<span class="old-price">${product.oldPrice}</span>` : '';
+
+        const images = product.images || [product.image];
+        const carouselId = 'productCarousel';
+        const carouselItems = images.map((img, i) => `
+            <div class="carousel-item ${i === 0 ? 'active' : ''}">
+                <img src="${img}" class="d-block w-100" alt="${product.name} - ${i + 1}" style="background:#fafafa;padding:40px;max-height:450px;object-fit:contain;">
+            </div>
+        `).join('');
+        const carouselIndicators = images.map((_, i) => `
+            <button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}"></button>
+        `).join('');
+        const thumbnails = images.map((img, i) => `
+            <img src="${img}" class="img-thumbnail thumb-slide ${i === 0 ? 'border-danger' : ''}" alt="" data-slide="${i}" style="height:60px;width:auto;cursor:pointer;object-fit:contain;padding:6px;">
+        `).join('');
+
+        const carouselHtml = `
+            <div id="${carouselId}" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    ${carouselIndicators}
+                </div>
+                <div class="carousel-inner rounded-3">${carouselItems}</div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-1"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-1"></span>
+                </button>
+            </div>
+            <div class="d-flex gap-2 mt-2 flex-wrap justify-content-center">${thumbnails}</div>
+        `;
+
+        detailContainer.innerHTML = `
+            <div class="container">
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="./index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="./products.html">Sản phẩm</a></li>
+                        <li class="breadcrumb-item active">${product.name}</li>
+                    </ol>
+                </nav>
+
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="position-relative">
                             ${badge}
-                            <img src="${p.image}" class="card-img-top" alt="${p.name}">
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">${p.name}</h6>
-                                <p class="card-text flex-grow-1">${p.specs}</p>
-                                <div class="mt-auto">
-                                    ${oldPrice}<span class="current-price">${p.price}</span>
-                                </div>
-                                <div class="d-flex gap-1 mt-2">
-                                    <a href="./detail.html?id=${p.id}" class="btn btn-outline-danger btn-sm flex-fill">
-                                        <i class="bi bi-info-circle me-1"></i>Chi tiết
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-sm flex-fill" onclick="addToCart({id:'${p.id}',image:'${p.image}',name:'${p.name}',specs:'${p.specs}',price:'${p.price}'});return false;">
-                                        <i class="bi bi-cart-plus me-1"></i>Giỏ hàng
-                                    </a>
-                                </div>
-                            </div>
+                            ${carouselHtml}
                         </div>
                     </div>
-                `;
-            }).join('');
-        }
 
-        const filterHtml = productsPageData.filters.map(f =>
-            `<button class="filter-btn ${f === 'Tất cả' ? 'active' : ''}" data-filter="${f}">${f}</button>`
-        ).join('');
+                    <div class="col-lg-6">
+                        <p class="text-muted small mb-1">${product.series}</p>
+                        <h2 class="fw-bold mb-2">${product.name}</h2>
+                        <p class="text-muted mb-3">${product.specs}</p>
 
-        productsContainer.innerHTML = `
-            <div class="container">
-                <div class="text-center mb-4">
-                    <h2>${productsPageData.title}</h2>
-                    <p class="text-muted">${productsPageData.subtitle}</p>
+                        <div class="mb-3">
+                            ${oldPrice}<span class="current-price" id="totalPrice">${product.price}</span>
+                            <span class="text-muted small ms-2" id="qtyLabel">x 1</span>
+                        </div>
+
+                        <p class="mb-4">${product.desc}</p>
+
+                        <div class="d-flex gap-3 mb-4">
+                            <div class="quantity-control d-flex align-items-center border rounded">
+                                <button class="btn btn-link text-dark px-2" onclick="changeQty(-1)">−</button>
+                                <span class="px-3 fw-bold" id="qty">1</span>
+                                <button class="btn btn-link text-dark px-2" onclick="changeQty(1)">+</button>
+                            </div>
+                            <a href="#" class="btn btn-danger flex-fill" onclick="addToCart({id:'${product.id}',image:'${product.image}',name:'${product.name}',specs:'${product.specs}',price:'${product.price}',qty:parseInt(document.getElementById('qty').textContent)});return false;">
+                                <i class="bi bi-cart-plus me-1"></i>Thêm vào giỏ hàng
+                            </a>
+                        </div>
+
+                        <div class="border-top pt-3">
+                            <p class="small text-muted mb-1"><i class="bi bi-truck me-1"></i>Miễn phí giao hàng toàn quốc</p>
+                            <p class="small text-muted mb-1"><i class="bi bi-shield-check me-1"></i>Bảo hành chính hãng 12 tháng</p>
+                            <p class="small text-muted mb-0"><i class="bi bi-arrow-return-left me-1"></i>Đổi trả 30 ngày</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-4 filter-group">
-                    ${filterHtml}
-                </div>
-                <div class="row g-3 g-sm-4" id="product-grid">${renderProducts('Tất cả')}</div>
+
             </div>
         `;
 
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                document.getElementById('product-grid').innerHTML = renderProducts(this.dataset.filter);
+        document.querySelectorAll('.thumb-slide').forEach(el => {
+            el.addEventListener('click', function () {
+                const idx = this.dataset.slide;
+                const btn = document.querySelector(`#${carouselId} [data-bs-slide-to="${idx}"]`);
+                if (btn) btn.click();
+                document.querySelectorAll('.thumb-slide').forEach(t => t.classList.remove('border-danger'));
+                this.classList.add('border-danger');
             });
         });
+
+        const basePrice = parseInt(product.price.replace(/[.\s₫]/g, ''));
+
+        function changeQty(delta) {
+            const el = document.getElementById('qty');
+            let val = parseInt(el.textContent) + delta;
+            if (val < 1) val = 1;
+            el.textContent = val;
+            document.getElementById('totalPrice').textContent = fmtPrice(basePrice * val);
+            document.getElementById('qtyLabel').textContent = `x ${val}`;
+        }
     </script>
 
     <!-- Footer -->

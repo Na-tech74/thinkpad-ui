@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThinkPad Shop</title>
+
+    <link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/style/header.css">
+    <link rel="stylesheet" href="./assets/style/footer.css">
+    <link rel="stylesheet" href="./assets/style/payment.css">
+</head>
+<body>
+    <!--Header-->
+    <header class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-danger" href="./index.html">ThinkPad <span class="text-light">Shop</span></a>
+            <div class="d-flex align-items-center gap-2 ms-auto order-lg-3">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle text-light px-2" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person fs-6"></i> <span class="d-none d-sm-inline">Tài khoản</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="./login.html">Đăng nhập</a></li>
+                        <li><a class="dropdown-item" href="./register.html">Đăng ký</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item text-danger" href="#" onclick="logoutUser();location.reload();return false;">Đăng xuất</a></li>
+                    </ul>
+                </div>
+                <a href="./cart.html" class="nav-link text-light px-2 position-relative">
+                    <i class="bi bi-cart3 fs-6"></i>
+                    <span class="badge bg-danger rounded-pill position-absolute cart-badge" style="font-size:0.65rem;top:-2px;right:-4px;display:none;">0</span>
+                    <span class="d-none d-sm-inline ms-1">Giỏ hàng</span>
+                </a>
+            </div>
+            <button class="navbar-toggler order-lg-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse order-lg-2" id="navbarMenu">
+                <ul class="navbar-nav mx-auto" id="mainMenu"></ul>
+                <script src="./data/homedb.js"></script>
+                <script>
+                    const mainMenu = document.getElementById("mainMenu");
+                    menuItems.forEach((item) => {
+                        mainMenu.innerHTML += `
+                            <li class="nav-item mx-2">
+                                <a class="nav-link fw-semibold" href="${item.href}">${item.text}</a>
+                            </li>
+                        `;
+                    });
+                    updateCartBadge();
+                    if (isLoggedIn()) {
+                        const dd = document.querySelector('.dropdown .dropdown-toggle');
+                        if (dd) dd.innerHTML = '<i class="bi bi-person-check fs-6"></i> <span class="d-none d-sm-inline">Tài khoản</span>';
+                        const logout = document.querySelector('.dropdown-item.text-danger');
+                        if (logout) logout.style.display = 'block';
+                    }
+                </script>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container py-2 bc-top">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="./index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="./cart.html">Giỏ hàng</a></li>
+                    <li class="breadcrumb-item active">Thanh toán</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="payment-wrapper">
+            <div class="container">
+                <h4 class="fw-bold mb-4">Thông tin thanh toán</h4>
+                <form id="paymentForm" onsubmit="return submitOrder(event)">
+                    <div class="row g-4">
+                        <div class="col-lg-7">
+                            <div class="payment-section card border-0 shadow-sm mb-4">
+                                <div class="card-body">
+                                    <h5 class="fw-bold mb-3"><i class="bi bi-person me-2"></i>Thông tin giao hàng</h5>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Họ tên <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" required placeholder="Nguyễn Văn A">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                                            <input type="tel" class="form-control" required placeholder="0987654321">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" class="form-control" placeholder="example@email.com">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Địa chỉ <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" required placeholder="Số nhà, đường, phường/xã">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Tỉnh/Thành</label>
+                                            <select class="form-select">
+                                                <option value="">Chọn</option>
+                                                <option>Hồ Chí Minh</option>
+                                                <option>Hà Nội</option>
+                                                <option>Đà Nẵng</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Quận/Huyện</label>
+                                            <input type="text" class="form-control" placeholder="Quận 1, Hải Châu,...">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Phường/Xã</label>
+                                            <input type="text" class="form-control" placeholder="Phường Bến Nghé,...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-section card border-0 shadow-sm mb-4">
+                                <div class="card-body">
+                                    <h5 class="fw-bold mb-3"><i class="bi bi-credit-card me-2"></i>Phương thức thanh toán</h5>
+                                    <div class="payment-options">
+                                        <label class="payment-option d-flex align-items-center gap-3 p-3 border rounded mb-2">
+                                            <input type="radio" name="payment" value="cod" checked>
+                                            <i class="bi bi-cash-stack fs-4 text-success"></i>
+                                            <div>
+                                                <strong>Thanh toán khi nhận hàng (COD)</strong>
+                                                <p class="mb-0 text-muted small">Trả tiền khi nhận hàng</p>
+                                            </div>
+                                        </label>
+                                        <label class="payment-option d-flex align-items-center gap-3 p-3 border rounded mb-2">
+                                            <input type="radio" name="payment" value="bank">
+                                            <i class="bi bi-bank fs-4 text-primary"></i>
+                                            <div>
+                                                <strong>Chuyển khoản ngân hàng</strong>
+                                                <p class="mb-0 text-muted small">Chuyển khoản qua tài khoản ngân hàng</p>
+                                            </div>
+                                        </label>
+                                        <label class="payment-option d-flex align-items-center gap-3 p-3 border rounded">
+                                            <input type="radio" name="payment" value="card">
+                                            <i class="bi bi-credit-card-2-front fs-4 text-danger"></i>
+                                            <div>
+                                                <strong>Thẻ tín dụng / Ghi nợ</strong>
+                                                <p class="mb-0 text-muted small">Visa, Mastercard, JCB</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="payment-summary card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="fw-bold mb-3">Đơn hàng của bạn</h5>
+                                    <div id="orderItems"></div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted">Tạm tính</span>
+                                        <span class="fw-bold" id="paySubtotal">0₫</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted">Phí vận chuyển</span>
+                                        <span class="fw-bold" id="payShipping">0₫</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-bold fs-5">Tổng cộng</span>
+                                        <span class="fw-bold fs-5 text-danger" id="payTotal">0₫</span>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger w-100 py-2">
+                                        <i class="bi bi-check-circle me-1"></i>Đặt hàng
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function renderOrderSummary() {
+            const cart = getCart();
+            const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            const shipping = subtotal >= 50000000 ? 0 : 500000;
+            const total = subtotal + shipping;
+
+            document.getElementById('paySubtotal').textContent = fmtPrice(subtotal);
+            document.getElementById('payShipping').textContent = shipping === 0 ? 'Miễn phí' : fmtPrice(shipping);
+            document.getElementById('payTotal').textContent = fmtPrice(total);
+
+            const itemsHtml = cart.map(item => `
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="${item.image}" alt="" style="width:45px;height:45px;object-fit:contain;background:#fafafa;border-radius:6px;padding:4px;">
+                        <div>
+                            <p class="mb-0 small fw-bold">${item.name}</p>
+                            <p class="mb-0 text-muted" style="font-size:0.75rem;">x${item.qty}</p>
+                        </div>
+                    </div>
+                    <span class="small fw-bold">${fmtPrice(item.price * item.qty)}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('orderItems').innerHTML = itemsHtml || '<p class="text-muted small">Giỏ hàng trống</p>';
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            if (!isLoggedIn()) {
+                window.location.href = './login.html?redirect=' + encodeURIComponent(window.location.href);
+                return false;
+            }
+            const cart = getCart();
+            if (cart.length === 0) { alert('Giỏ hàng trống!'); return false; }
+
+            const form = document.getElementById('paymentForm');
+            const inputs = form.querySelectorAll('input, select');
+            const getVal = (placeholder) => { const el = Array.from(inputs).find(i => i.placeholder === placeholder); return el ? el.value : ''; };
+            const order = {
+                items: cart,
+                name: getVal('Nguyễn Văn A'),
+                phone: getVal('0987654321'),
+                email: getVal('example@email.com'),
+                address: getVal('Số nhà, đường, phường/xã'),
+                city: getVal('Quận 1, Hải Châu,...'),
+                ward: getVal('Phường Bến Nghé,...'),
+                payment: form.querySelector('input[name="payment"]:checked').value
+            };
+            localStorage.setItem('thinkpad_order', JSON.stringify(order));
+            localStorage.removeItem('thinkpad_cart');
+            window.location.href = './order.html';
+            return false;
+        }
+
+        renderOrderSummary();
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-black text-light pt-5 pb-3 mt-5" id="footer-container"></footer>
+    <script>
+        const footerContainer = document.getElementById("footer-container");
+        const footerHTML = `
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-6">
+                        <h3 class="fw-bold text-danger">${footerData.brand.name} <span class="text-light">${footerData.brand.suffix}</span></h3>
+                        <p class="text-secondary mt-3">${footerData.brand.desc}</p>
+                        <div class="d-flex gap-3 mt-4">${footerData.brand.socials.map(s => `<a href="${s.href}" class="social-icon"><i class="bi ${s.icon}"></i></a>`).join('')}</div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <h5 class="footer-title">${footerData.navigation.title}</h5>
+                        <ul class="list-unstyled">${footerData.navigation.links.map(l => `<li><a href="${l.href}" class="footer-link">${l.text}</a></li>`).join('')}</ul>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <h5 class="footer-title">${footerData.support.title}</h5>
+                        <ul class="list-unstyled">${footerData.support.links.map(l => `<li><a href="${l.href}" class="footer-link">${l.text}</a></li>`).join('')}</ul>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <h5 class="footer-title">${footerData.contact.title}</h5>
+                        ${footerData.contact.items.map(item => `<p><i class="bi ${item.icon} text-danger"></i> ${item.text}</p>`).join('')}
+                    </div>
+                </div>
+                <hr class="footer-divider">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start"><p class="copyright mb-0">${footerData.copyright}</p></div>
+                    <div class="col-md-6 text-center text-md-end mt-3 mt-md-0"><span class="text-secondary">${footerData.builtWith}</span></div>
+                </div>
+            </div>
+        `;
+        footerContainer.innerHTML = footerHTML;
+    </script>
+    <script src="./bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
