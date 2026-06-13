@@ -111,17 +111,8 @@
         </div>
     </header>
     <main>
-        <div class="page-breadcrumb">
-            <div class="container">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item active fw-semibold">Trang chủ/...</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
         <!--Carousel-->
-        <section class="container-fluid carousel-wrapper">
+        <section class="container-fluid carousel-wrapper mt-4 pt-4">
             <div id="carouselExampleCaptions" class="carousel slide carousel-fade shadow-lg rounded overflow-hidden">
                 <div class="carousel-indicators" id="carousel-indicators"></div>
                 <div class="carousel-inner" id="carousel-inner"></div>
@@ -209,39 +200,73 @@
 
             <div class="row g-4" id="featured-products"></div>
 
-            <!--Pagination-->
+            <!--Pagination (dynamic) -->
             <nav aria-label="Page navigation" class="mt-4">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
+                <ul class="pagination justify-content-center" id="featured-pagination"></ul>
             </nav>
         </section>
 
         <script>
-            // --- SẢN PHẨM YÊU THÍCH ---
-            const featuredContainer = document.getElementById("featured-products");
+            // --- FEATURED PRODUCTS WITH PAGINATION ---
+            (function(){
+                const featuredContainer = document.getElementById("featured-products");
+                const paginationContainer = document.getElementById("featured-pagination");
+                const products = (typeof featuredProducts !== 'undefined' && Array.isArray(featuredProducts)) ? featuredProducts.slice() : [];
+                const itemsPerPage = 4;
+                let currentPage = 1;
+                const totalPages = Math.max(1, Math.ceil(products.length / itemsPerPage));
 
-            featuredProducts.forEach((item) => {
-                featuredContainer.innerHTML += `
-                    <div class="col-6 col-md-6 col-lg-3">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="${item.image}" class="card-img-top" alt="${item.name}">
-                            <div class="card-body text-center d-flex flex-column">
-                                <h5 class="card-title">${item.name}</h5>
-                                <p class="text-muted small flex-grow-1">${item.specs}</p>
-                                <h5 class="text-danger fw-bold">${item.price}</h5>
-                                <a href="./detail.html?id=${item.id}" class="btn btn-danger btn-sm mt-auto">
-                                    <i class="bi bi-info-circle me-1"></i>Chi tiết
-                                </a>
+                function renderPage(page) {
+                    currentPage = Math.max(1, Math.min(totalPages, page));
+                    featuredContainer.innerHTML = '';
+                    const start = (currentPage - 1) * itemsPerPage;
+                    const pageItems = products.slice(start, start + itemsPerPage);
+                    pageItems.forEach(item => {
+                        featuredContainer.innerHTML += `
+                            <div class="col-6 col-md-6 col-lg-3">
+                                <div class="card h-100 shadow-sm border-0">
+                                    <img src="${item.image}" class="card-img-top" alt="${item.name}">
+                                    <div class="card-body text-center d-flex flex-column">
+                                        <h5 class="card-title">${item.name}</h5>
+                                        <p class="text-muted small flex-grow-1">${item.specs}</p>
+                                        <h5 class="text-danger fw-bold">${item.price}</h5>
+                                        <a href="./detail.html?id=${item.id}" class="btn btn-danger btn-sm mt-auto">
+                                            <i class="bi bi-info-circle me-1"></i>Chi tiết
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                `;
-            });
+                        `;
+                    });
+                    renderPagination();
+                }
+
+                function renderPagination(){
+                    if (totalPages <= 1) { paginationContainer.innerHTML = ''; return; }
+                    let html = '';
+                    html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${currentPage-1}">&laquo;</a></li>`;
+                    const maxButtons = 5;
+                    let startPage = Math.max(1, currentPage - Math.floor(maxButtons/2));
+                    let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+                    if (endPage - startPage < maxButtons - 1) startPage = Math.max(1, endPage - maxButtons + 1);
+                    for (let p = startPage; p <= endPage; p++) {
+                        html += `<li class="page-item ${p === currentPage ? 'active' : ''}"><a class="page-link" href="#" data-page="${p}">${p}</a></li>`;
+                    }
+                    html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${currentPage+1}">&raquo;</a></li>`;
+                    paginationContainer.innerHTML = html;
+                }
+
+                paginationContainer.addEventListener('click', function(e){
+                    const a = e.target.closest('a.page-link');
+                    if (!a) return;
+                    e.preventDefault();
+                    const page = parseInt(a.getAttribute('data-page'), 10);
+                    if (!isNaN(page)) renderPage(page);
+                });
+
+                // Initialize
+                renderPage(1);
+            })();
         </script>
 
         <!-- CTA1 -->
@@ -298,7 +323,14 @@
             // --- BANNER 3 CỘT ---
             const bannerContainer = document.getElementById("banner-section");
 
-            bannerData.forEach((item) => {
+            // Fallback if `bannerData` is not defined
+            const banners = (typeof bannerData !== 'undefined' && Array.isArray(bannerData)) ? bannerData : [
+                { image: './assets/image/cate.jpg', title: 'Khuyến mãi', desc: 'Ưu đãi hấp dẫn cho khách hàng.' },
+                { image: './assets/image/cate.jpg', title: 'Sản phẩm mới', desc: 'Các mẫu ThinkPad mới nhất.' },
+                { image: './assets/image/cate.jpg', title: 'Bảo hành', desc: 'Hỗ trợ và bảo hành chính hãng.' }
+            ];
+
+            banners.forEach((item) => {
                 bannerContainer.innerHTML += `
                     <div class="col-6 col-md-6 col-lg-4">
                         <div class="banner-card">
