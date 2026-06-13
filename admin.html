@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard</title>
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap/icons/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/style/admin.css">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-12 col-md-2 bg-dark vh-100 p-3 text-white d-none d-md-block">
+          <div class="mb-4 fs-5 fw-bold">ThinkPad UI</div>
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item mb-1"><a class="nav-link active text-white" href="#"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+            <li class="nav-item mb-1"><a class="nav-link text-white" href="#"><i class="bi bi-box-seam me-2"></i>Products</a></li>
+            <li class="nav-item mb-1"><a class="nav-link text-white" href="#"><i class="bi bi-basket3 me-2"></i>Orders</a></li>
+            <li class="nav-item mb-1"><a class="nav-link text-white" href="#"><i class="bi bi-people me-2"></i>Users</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+          </ul>
+        </nav>
+
+        <main class="col-12 col-md-10 ms-sm-auto px-4">
+          <header class="d-flex align-items-center justify-content-between py-3">
+            <button class="btn btn-outline-light d-md-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+              <i class="bi bi-list"></i>
+            </button>
+            <form class="d-flex w-50" role="search">
+              <input class="form-control me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+              <button class="btn btn-primary" type="submit">Tìm</button>
+            </form>
+            <div class="dropdown">
+              <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="profileMenu" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileMenu">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+              </ul>
+            </div>
+          </header>
+
+          <section class="content">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h1 class="h3 mb-0">Dashboard</h1>
+            </div>
+
+            <!-- Stats cards rendered by JS -->
+            <div id="statsCards" class="row g-3 mb-4"></div>
+
+            <!-- Orders panel rendered by JS -->
+            <div id="ordersPanel" class="card"></div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script>
+  // ===== inlined homedb.js =====
+  const menuItems=[{href:"./index.html",text:"Trang chủ"},{href:"./products.html",text:"Sản phẩm"},{href:"./about.html",text:"Giới thiệu"},{href:"./contact.html",text:"Liên hệ"}];const categorise=[{title:"ThinkPad X1",content:"Cao cấp, siêu nhẹ, cho doanh nhân.",image:"./assets/image/cate.jpg"},{title:"ThinkPad T Series",content:"Văn phòng, lập trình, pin bền.",image:"./assets/image/cate.jpg"},{title:"ThinkPad P Series",content:"Workstation cho đồ họa và kỹ thuật.",image:"./assets/image/cate.jpg"},{title:"ThinkPad E Series",content:"Giá tốt cho sinh viên và văn phòng.",image:"./assets/image/cate.jpg"}];const carouselData=[{image:"./assets/image/carousel1.jpg",title:"ThinkPad X1 Carbon Gen 12",subtitle:"Siêu nhẹ · Bền bỉ · Hiệu năng đỉnh cao",active:true},{image:"./assets/image/carousel2.jpg",title:"ThinkPad T Series 2025",subtitle:"Ổn định · Chuyên nghiệp · Giá tốt",active:false},{image:"./assets/image/carousel3.jpg",title:"ThinkPad P Series Workstation",subtitle:"Đồ họa mạnh · Chuẩn kỹ sư · Hiệu năng workstation",active:false}];const featuredProducts=[{image:"./assets/image/cate.jpg",name:"ThinkPad X1 Carbon",specs:"Intel Core Ultra 7 · 32GB RAM · 1TB SSD",price:"39.990.000₫",id:"x1-carbon-gen12"},{image:"./assets/image/cate.jpg",name:"ThinkPad T14s Gen 5",specs:"AMD Ryzen 7 · 16GB RAM · 512GB SSD",price:"28.500.000₫",id:"t14s-gen5"},{image:"./assets/image/cate.jpg",name:"ThinkPad E16 Gen 2",specs:"Intel Core i7 · 16GB RAM · 512GB SSD",price:"22.990.000₫",id:"e16-gen2"},{image:"./assets/image/cate.jpg",name:"ThinkPad P16s Gen 3",specs:"AMD Ryzen 9 · 32GB RAM · 1TB SSD",price:"45.000.000₫",id:"p16s-gen3"}];const footerData={brand:{name:'ThinkPad',suffix:'Shop',desc:'Chuyên cung cấp các dòng ThinkPad chính hãng với chất lượng cao, bảo hành uy tín và dịch vụ hỗ trợ tận tâm.',socials:[{icon:'bi-facebook',href:'#'},{icon:'bi-youtube',href:'#'},{icon:'bi-instagram',href:'#'},{icon:'bi-github',href:'#'}]},navigation:{title:'Điều hướng',links:[{href:'./index.html',text:'Trang chủ'},{href:'./products.html',text:'Sản phẩm'},{href:'./about.html',text:'Giới thiệu'},{href:'./contact.html',text:'Liên hệ'}]},support:{title:'Hỗ trợ khách hàng',links:[{href:'#',text:'Chính sách bảo hành'},{href:'#',text:'Đổi trả sản phẩm'},{href:'#',text:'Hướng dẫn mua hàng'},{href:'#',text:'Câu hỏi thường gặp'}]},contact:{title:'Liên hệ',items:[{icon:'bi-geo-alt-fill',text:'TP. Hồ Chí Minh, Việt Nam'},{icon:'bi-telephone-fill',text:'0123 456 789'},{icon:'bi-envelope-fill',text:'support@thinkpadshop.com'}]},copyright:'© 2026 ThinkPad Shop. Design by Nam Nguyễn.',builtWith:'Built with Bootstrap 5'};function isLoggedIn(){return localStorage.getItem('thinkpad_logged_in')==='true'}function loginUser(){localStorage.setItem('thinkpad_logged_in','true')}function logoutUser(){localStorage.removeItem('thinkpad_logged_in')}function getCart(){try{return JSON.parse(localStorage.getItem('thinkpad_cart'))||[]}catch{return[]}}function saveCart(cart){localStorage.setItem('thinkpad_cart',JSON.stringify(cart))}function addToCart(product){const cart=getCart();const existing=cart.find(item=>item.id===product.id);if(existing){existing.qty+=product.qty||1}else{cart.push({id:product.id,image:product.image,name:product.name,specs:product.specs,price:typeof product.price==='string'?parsePrice(product.price):product.price,qty:product.qty||1})}saveCart(cart);alert('Đã thêm vào giỏ hàng!');updateCartBadge()}function updateCartBadge(){const cart=getCart();const count=cart.reduce((sum,item)=>sum+item.qty,0);document.querySelectorAll('.cart-badge').forEach(el=>{el.textContent=count;el.style.display=count>0?'inline':'none'})}function parsePrice(str){return parseInt(String(str).replace(/[.\s₫]/g,''))}function fmtPrice(num){return Number(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')+'₫'}
+  // ===== end inlined homedb.js =====
+    </script>
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Data from data/homedb.js
+      const products = (typeof productsPageData !== 'undefined' && productsPageData.products) ? productsPageData.products : (typeof featuredProducts !== 'undefined' ? featuredProducts : []);
+      const cart = (typeof getCart === 'function') ? getCart() : [];
+      const orders = JSON.parse(localStorage.getItem('thinkpad_orders') || '[]');
+
+      const fmt = (typeof fmtPrice === 'function') ? fmtPrice : (n => (typeof n === 'number' ? n.toString() : n));
+
+      // Render stats cards dynamically
+      const statsCards = document.getElementById('statsCards');
+      function renderStats() {
+        const revenue = cart.reduce((sum, i) => sum + (i.price || 0) * (i.qty || 1), 0);
+        const stats = [
+          { title: 'Tổng doanh thu', value: fmt(revenue || 0) },
+          { title: 'Đơn hàng', value: (orders.length || 0) },
+          { title: 'Sản phẩm', value: (products.length || 0) },
+          { title: 'Người dùng', value: (JSON.parse(localStorage.getItem('thinkpad_users') || '[]').length || 320) }
+        ];
+
+        if (!statsCards) return;
+        statsCards.innerHTML = '';
+        stats.forEach(s => {
+          const col = document.createElement('div');
+          col.className = 'col-12 col-sm-6 col-md-3';
+          col.innerHTML = `
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">${s.title}</h6>
+                <h4 class="card-title">${s.value}</h4>
+              </div>
+            </div>
+          `;
+          statsCards.appendChild(col);
+        });
+      }
+
+      // Render orders table dynamically
+      const ordersPanel = document.getElementById('ordersPanel');
+      function renderOrders() {
+        if (!ordersPanel) return;
+        const list = orders.length ? orders : [
+          { id: '#1001', customer: 'Nguyễn Văn A', total: 230, status: 'Chờ', date: '2026-06-12' },
+          { id: '#1000', customer: 'Trần Thị B', total: 1200, status: 'Hoàn thành', date: '2026-06-11' },
+          { id: '#999', customer: 'Phạm C', total: 45, status: 'Hủy', date: '2026-06-10' }
+        ];
+
+        ordersPanel.innerHTML = `
+          <div class="card-body">
+            <h5 class="card-title">Đơn hàng gần đây</h5>
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Khách hàng</th>
+                    <th>Tổng</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${list.slice(0, 50).map(o => `
+                    <tr>
+                      <td>${o.id}</td>
+                      <td>${o.customer}</td>
+                      <td>${fmt(o.total)}</td>
+                      <td>${renderBadge(o.status)}</td>
+                      <td>${o.date}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderBadge(s) {
+        if (!s) return '';
+        const t = String(s).toLowerCase();
+        if (t.includes('hoàn') || t.includes('completed')) return '<span class="badge bg-success">Hoàn thành</span>';
+        if (t.includes('hủy') || t.includes('huy') || t.includes('cancel')) return '<span class="badge bg-danger">Hủy</span>';
+        return '<span class="badge bg-warning text-dark">Chờ</span>';
+      }
+
+      // Initial render
+      renderStats();
+      renderOrders();
+    });
+    </script>
+
+    <!-- Offcanvas for mobile sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasSidebarLabel">ThinkPad UI</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item mb-1"><a class="nav-link active text-dark" href="#"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+          <li class="nav-item mb-1"><a class="nav-link text-dark" href="#"><i class="bi bi-box-seam me-2"></i>Products</a></li>
+          <li class="nav-item mb-1"><a class="nav-link text-dark" href="#"><i class="bi bi-basket3 me-2"></i>Orders</a></li>
+          <li class="nav-item mb-1"><a class="nav-link text-dark" href="#"><i class="bi bi-people me-2"></i>Users</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

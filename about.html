@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="./assets/style/footer.css">
     <link rel="stylesheet" href="./assets/style/about.css">
 </head>
+
 <body>
     <!--Header-->
     <header class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
@@ -21,30 +23,50 @@
 
             <div class="d-flex align-items-center gap-2 ms-auto order-lg-3">
                 <div class="dropdown">
-                    <a class="nav-link dropdown-toggle text-light px-2" href="#" role="button" data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle text-light px-2" href="#" role="button"
+                        data-bs-toggle="dropdown">
                         <i class="bi bi-person fs-6"></i> <span class="d-none d-sm-inline">Tài khoản</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="./login.html">Đăng nhập</a></li>
                         <li><a class="dropdown-item" href="./register.html">Đăng ký</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" href="#" onclick="logoutUser();location.reload();return false;">Đăng xuất</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger" href="#"
+                                onclick="logoutUser();location.reload();return false;">Đăng xuất</a></li>
                     </ul>
                 </div>
                 <a href="./cart.html" class="nav-link text-light px-2 position-relative">
                     <i class="bi bi-cart3 fs-6"></i>
-                    <span class="badge bg-danger rounded-pill position-absolute cart-badge" style="font-size:0.65rem;top:-2px;right:-4px;display:none;">0</span>
+                    <span class="badge bg-danger rounded-pill position-absolute cart-badge"
+                        style="font-size:0.65rem;top:-2px;right:-4px;display:none;">0</span>
                     <span class="d-none d-sm-inline ms-1">Giỏ hàng</span>
                 </a>
             </div>
 
-            <button class="navbar-toggler order-lg-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+            <button class="navbar-toggler order-lg-4" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse order-lg-2" id="navbarMenu">
                 <ul class="navbar-nav mx-auto" id="mainMenu"></ul>
-                <script src="./data/homedb.js"></script>
+                <script>
+                    // ===== inlined homedb.js =====
+                    const menuItems = [
+                        { href: "./index.html", text: "Trang chủ" },
+                        { href: "./products.html", text: "Sản phẩm" },
+                        { href: "./about.html", text: "Giới thiệu" },
+                        { href: "./contact.html", text: "Liên hệ" }
+                    ];
+                    const categorise = [{ title: "ThinkPad X1", content: "Cao cấp, siêu nhẹ, cho doanh nhân.", image: "./assets/image/cate.jpg" }, { title: "ThinkPad T Series", content: "Văn phòng, lập trình, pin bền.", image: "./assets/image/cate.jpg" }, { title: "ThinkPad P Series", content: "Workstation cho đồ họa và kỹ thuật.", image: "./assets/image/cate.jpg" }, { title: "ThinkPad E Series", content: "Giá tốt cho sinh viên và văn phòng.", image: "./assets/image/cate.jpg" }];
+                    const carouselData = [{ image: "./assets/image/carousel1.jpg", title: "ThinkPad X1 Carbon Gen 12", subtitle: "Siêu nhẹ · Bền bỉ · Hiệu năng đỉnh cao", active: true }, { image: "./assets/image/carousel2.jpg", title: "ThinkPad T Series 2025", subtitle: "Ổn định · Chuyên nghiệp · Giá tốt", active: false }, { image: "./assets/image/carousel3.jpg", title: "ThinkPad P Series Workstation", subtitle: "Đồ họa mạnh · Chuẩn kỹ sư · Hiệu năng workstation", active: false }];
+                    const featuredProducts = [{ image: "./assets/image/cate.jpg", name: "ThinkPad X1 Carbon", specs: "Intel Core Ultra 7 · 32GB RAM · 1TB SSD", price: "39.990.000₫", id: "x1-carbon-gen12" }, { image: "./assets/image/cate.jpg", name: "ThinkPad T14s Gen 5", specs: "AMD Ryzen 7 · 16GB RAM · 512GB SSD", price: "28.500.000₫", id: "t14s-gen5" }, { image: "./assets/image/cate.jpg", name: "ThinkPad E16 Gen 2", specs: "Intel Core i7 · 16GB RAM · 512GB SSD", price: "22.990.000₫", id: "e16-gen2" }, { image: "./assets/image/cate.jpg", name: "ThinkPad P16s Gen 3", specs: "AMD Ryzen 9 · 32GB RAM · 1TB SSD", price: "45.000.000₫", id: "p16s-gen3" }];
+                    const footerData = { brand: { name: 'ThinkPad', suffix: 'Shop', desc: 'Chuyên cung cấp các dòng ThinkPad chính hãng với chất lượng cao, bảo hành uy tín và dịch vụ hỗ trợ tận tâm.', socials: [{ icon: 'bi-facebook', href: '#' }, { icon: 'bi-youtube', href: '#' }, { icon: 'bi-instagram', href: '#' }, { icon: 'bi-github', href: '#' }] }, navigation: { title: 'Điều hướng', links: [{ href: './index.html', text: 'Trang chủ' }, { href: './products.html', text: 'Sản phẩm' }, { href: './about.html', text: 'Giới thiệu' }, { href: './contact.html', text: 'Liên hệ' }] }, support: { title: 'Hỗ trợ khách hàng', links: [{ href: '#', text: 'Chính sách bảo hành' }, { href: '#', text: 'Đổi trả sản phẩm' }, { href: '#', text: 'Hướng dẫn mua hàng' }, { href: '#', text: 'Câu hỏi thường gặp' }] }, contact: { title: 'Liên hệ', items: [{ icon: 'bi-geo-alt-fill', text: 'TP. Hồ Chí Minh, Việt Nam' }, { icon: 'bi-telephone-fill', text: '0123 456 789' }, { icon: 'bi-envelope-fill', text: 'support@thinkpadshop.com' }] }, copyright: '© 2026 ThinkPad Shop. Design by Nam Nguyễn.', builtWith: 'Built with Bootstrap 5' };
+                    function isLoggedIn() { return localStorage.getItem('thinkpad_logged_in') === 'true' } function loginUser() { localStorage.setItem('thinkpad_logged_in', 'true') } function logoutUser() { localStorage.removeItem('thinkpad_logged_in') } function getCart() { try { return JSON.parse(localStorage.getItem('thinkpad_cart')) || [] } catch { return [] } } function saveCart(cart) { localStorage.setItem('thinkpad_cart', JSON.stringify(cart)) } function addToCart(product) { const cart = getCart(); const existing = cart.find(item => item.id === product.id); if (existing) { existing.qty += product.qty || 1 } else { cart.push({ id: product.id, image: product.image, name: product.name, specs: product.specs, price: typeof product.price === 'string' ? parsePrice(product.price) : product.price, qty: product.qty || 1 }) } saveCart(cart); alert('Đã thêm vào giỏ hàng!'); updateCartBadge() } function updateCartBadge() { const cart = getCart(); const count = cart.reduce((sum, item) => sum + item.qty, 0); document.querySelectorAll('.cart-badge').forEach(el => { el.textContent = count; el.style.display = count > 0 ? 'inline' : 'none' }) } function parsePrice(str) { return parseInt(String(str).replace(/[.\s₫]/g, '')) } function fmtPrice(num) { return Number(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫' }
+                    // ===== end inlined homedb.js =====
+                </script>
                 <script>
                     const mainMenu = document.getElementById("mainMenu");
                     menuItems.forEach((item) => {
@@ -163,4 +185,5 @@
     </script>
     <script src="./bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
