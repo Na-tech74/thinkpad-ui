@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThinkPad Shop</title>
 
-    <!-- Bootstrap -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.min.css">
-    <!--icons-->
     <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css">
-    <!-- css -->
     <link rel="stylesheet" href="./assets/style/header.css">
     <link rel="stylesheet" href="./assets/style/index.css">
     <link rel="stylesheet" href="./assets/style/footer.css">
@@ -40,6 +41,22 @@
                                 onclick="logoutUser();location.reload();return false;">Đăng xuất</a></li>
                     </ul>
                 </div>
+                <div class="dropdown">
+                    <a class="nav-link text-light px-2 position-relative" href="#" role="button"
+                        data-bs-toggle="dropdown">
+                        <i class="bi bi-bell fs-6"></i>
+                        <span class="badge bg-danger rounded-pill position-absolute notif-badge"
+                            style="font-size:0.6rem;top:-2px;right:-2px;">3</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" style="min-width:280px;">
+                        <li><h6 class="dropdown-header">Thông báo</h6></li>
+                        <li><a class="dropdown-item" href="#"><small class="text-muted">ThinkPad X1 Carbon vừa được cập nhật giá mới</small></a></li>
+                        <li><a class="dropdown-item" href="#"><small class="text-muted">Khuyến mãi đặc biệt dòng T Series</small></a></li>
+                        <li><a class="dropdown-item" href="#"><small class="text-muted">Bảo hành mở rộng cho P Series</small></a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-center small" href="#">Xem tất cả</a></li>
+                    </ul>
+                </div>
                 <a href="./cart.html" class="nav-link text-light px-2 position-relative">
                     <i class="bi bi-cart3 fs-6"></i>
                     <span class="badge bg-danger rounded-pill position-absolute cart-badge"
@@ -56,7 +73,6 @@
             <div class="collapse navbar-collapse order-lg-2" id="navbarMenu">
                 <ul class="navbar-nav mx-auto" id="mainMenu"></ul>
                 <script>
-                    // ===== inlined homedb.js =====
                     const menuItems = [
                         { href: "./index.html", text: "Trang chủ" },
                         { href: "./products.html", text: "Sản phẩm" },
@@ -78,7 +94,11 @@
                         { image: "./assets/image/cate.jpg", name: "ThinkPad X1 Carbon", specs: "Intel Core Ultra 7 · 32GB RAM · 1TB SSD", price: "39.990.000₫", id: "x1-carbon-gen12" },
                         { image: "./assets/image/cate.jpg", name: "ThinkPad T14s Gen 5", specs: "AMD Ryzen 7 · 16GB RAM · 512GB SSD", price: "28.500.000₫", id: "t14s-gen5" },
                         { image: "./assets/image/cate.jpg", name: "ThinkPad E16 Gen 2", specs: "Intel Core i7 · 16GB RAM · 512GB SSD", price: "22.990.000₫", id: "e16-gen2" },
-                        { image: "./assets/image/cate.jpg", name: "ThinkPad P16s Gen 3", specs: "AMD Ryzen 9 · 32GB RAM · 1TB SSD", price: "45.000.000₫", id: "p16s-gen3" }
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad P16s Gen 3", specs: "AMD Ryzen 9 · 32GB RAM · 1TB SSD", price: "45.000.000₫", id: "p16s-gen3" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad X1 Yoga Gen 4", specs: "Intel Core i7 · 16GB RAM · 512GB SSD", price: "34.500.000₫", id: "x1-yoga-gen4" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad T14 Gen 12", specs: "Intel Core i7 · 16GB RAM · 512GB SSD", price: "29.990.000₫", id: "t14-gen12" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad P1 Gen 5", specs: "Intel Xeon · 64GB RAM · 4TB SSD", price: "129.990.000₫", id: "p1-gen5" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad E14 Gen 4", specs: "AMD Ryzen 7 · 16GB RAM · 1TB SSD", price: "21.990.000₫", id: "e14-g4" }
                     ];
                     const footerData = { brand: { name: 'ThinkPad', suffix: 'Shop', desc: 'Chuyên cung cấp các dòng ThinkPad chính hãng với chất lượng cao, bảo hành uy tín và dịch vụ hỗ trợ tận tâm.', socials: [{ icon: 'bi-facebook', href: '#' }, { icon: 'bi-youtube', href: '#' }, { icon: 'bi-instagram', href: '#' }, { icon: 'bi-github', href: '#' }] }, navigation: { title: 'Điều hướng', links: [{ href: './index.html', text: 'Trang chủ' }, { href: './products.html', text: 'Sản phẩm' }, { href: './about.html', text: 'Giới thiệu' }, { href: './contact.html', text: 'Liên hệ' }] }, support: { title: 'Hỗ trợ khách hàng', links: [{ href: '#', text: 'Chính sách bảo hành' }, { href: '#', text: 'Đổi trả sản phẩm' }, { href: '#', text: 'Hướng dẫn mua hàng' }, { href: '#', text: 'Câu hỏi thường gặp' }] }, contact: { title: 'Liên hệ', items: [{ icon: 'bi-geo-alt-fill', text: 'TP. Hồ Chí Minh, Việt Nam' }, { icon: 'bi-telephone-fill', text: '0123 456 789' }, { icon: 'bi-envelope-fill', text: 'support@thinkpadshop.com' }] }, copyright: '© 2026 ThinkPad Shop. Design by Nam Nguyễn.', builtWith: 'Built with Bootstrap 5' };
                     function isLoggedIn() { return localStorage.getItem('thinkpad_logged_in') === 'true' }
@@ -90,7 +110,6 @@
                     function updateCartBadge() { const cart = getCart(); const count = cart.reduce((sum, item) => sum + item.qty, 0); document.querySelectorAll('.cart-badge').forEach(el => { el.textContent = count; el.style.display = count > 0 ? 'inline' : 'none' }) }
                     function parsePrice(str) { return parseInt(String(str).replace(/[.\s₫]/g, '')) }
                     function fmtPrice(num) { return Number(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫' }
-                    // ===== end inlined homedb.js =====
                 </script>
                 <script>
                     const mainMenu = document.getElementById("mainMenu");
@@ -110,272 +129,220 @@
             </div>
         </div>
     </header>
+
     <main>
-        <!--Carousel-->
-        <section class="container-fluid carousel-wrapper mt-4 pt-4">
-            <div id="carouselExampleCaptions" class="carousel slide carousel-fade shadow-lg rounded overflow-hidden">
-                <div class="carousel-indicators" id="carousel-indicators"></div>
-                <div class="carousel-inner" id="carousel-inner"></div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="prev">
+        <!-- ─── Hero Carousel ─── -->
+        <section class="hero-section">
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-indicators" id="heroIndicators"></div>
+                <div class="carousel-inner" id="heroInner"></div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
         </section>
 
         <script>
-            // --- CAROUSEL ---
-            const indicators = document.getElementById("carousel-indicators");
-            const carouselInner = document.getElementById("carousel-inner");
+            const heroIndicators = document.getElementById("heroIndicators");
+            const heroInner = document.getElementById("heroInner");
 
             carouselData.forEach((item, index) => {
-                // Indicator
-                indicators.innerHTML += `
-                    <button type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="${index}"
+                heroIndicators.innerHTML += `
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="${index}"
                         class="${item.active ? 'active' : ''}"
                         ${item.active ? 'aria-current="true"' : ''}
                         aria-label="Slide ${index + 1}">
                     </button>
                 `;
-                // Slide
-                carouselInner.innerHTML += `
+                heroInner.innerHTML += `
                     <div class="carousel-item ${item.active ? 'active' : ''}">
                         <img src="${item.image}" class="d-block w-100" alt="${item.title}">
                         <div class="carousel-caption">
                             <h5>${item.title}</h5>
                             <p>${item.subtitle}</p>
+                            <a href="./products.html" class="btn-hero">
+                                Khám phá <i class="bi bi-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 `;
             });
         </script>
-        <!--category product -->
-        <section class="container mt-5">
 
-            <div class="text-center mb-4">
-                <h3 class="fw-bold">Danh mục sản phẩm</h3>
-                <p class="text-muted">
-                    Lựa chọn dòng ThinkPad phù hợp với nhu cầu của bạn
-                </p>
+        <!-- ─── Categories ─── -->
+        <section class="categories-section mt-5">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Danh mục sản phẩm</h2>
+                    <p>Lựa chọn dòng ThinkPad phù hợp với nhu cầu của bạn</p>
+                </div>
+                <div class="row g-4" id="categoryGrid"></div>
             </div>
-
-            <div id="categorise-data" class="row g-4"> </div>
-
         </section>
 
         <script>
-            const categoryContainer = document.getElementById("categorise-data");
-
+            const categoryGrid = document.getElementById("categoryGrid");
             categorise.forEach((item) => {
-                categoryContainer.innerHTML += `
+                categoryGrid.innerHTML += `
                     <div class="col-6 col-md-6 col-lg-3">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="${item.image}" class="card-img-top" alt="${item.title}">
-                            <div class="card-body text-center d-flex flex-column">
-                                <h5 class="card-title">${item.title}</h5>
-                                <p class="card-text text-muted flex-grow-1">
-                                    ${item.content}
-                                </p>
-                                <a href="./products.html" class="btn btn-danger btn-sm mt-auto">
-                                    <i class="bi bi-box me-1"></i>Xem thêm
-                                </a>
+                        <a href="./products.html?filter=${encodeURIComponent(item.title)}" class="category-card">
+                            <img src="${item.image}" alt="${item.title}" loading="lazy">
+                            <div class="overlay">
+                                <h4>${item.title}</h4>
+                                <p>${item.content}</p>
+                                <span class="btn-category"><i class="bi bi-box"></i> Xem thêm</span>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 `;
             });
         </script>
-        <!--Featured Products-->
-        <section class="container mt-5">
-            <div class="text-center mb-4">
-                <h3 class="fw-bold">Sản phẩm được yêu thích nhất</h3>
-                <p class="text-muted">Các dòng ThinkPad phù hợp với mọi yêu cầu của khách hàng</p>
+
+        <!-- ─── Featured Products ─── -->
+        <section class="featured-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Sản phẩm nổi bật</h2>
+                    <p>ThinkPad đỉnh cao dành cho mọi nhu cầu</p>
+                </div>
+                <div class="featured-grid" id="featuredGrid"></div>
+                <ul class="featured-pagination" id="featuredPagination"></ul>
             </div>
-
-            <div class="row g-4" id="featured-products"></div>
-
-            <!--Pagination (dynamic) -->
-            <nav aria-label="Page navigation" class="mt-4">
-                <ul class="pagination justify-content-center" id="featured-pagination"></ul>
-            </nav>
         </section>
 
         <script>
-            // --- FEATURED PRODUCTS WITH PAGINATION ---
-            (function(){
-                const featuredContainer = document.getElementById("featured-products");
-                const paginationContainer = document.getElementById("featured-pagination");
+            (function () {
+                const grid = document.getElementById("featuredGrid");
+                const pag = document.getElementById("featuredPagination");
                 const products = (typeof featuredProducts !== 'undefined' && Array.isArray(featuredProducts)) ? featuredProducts.slice() : [];
-                const itemsPerPage = 4;
-                let currentPage = 1;
-                const totalPages = Math.max(1, Math.ceil(products.length / itemsPerPage));
+                const perPage = 4;
+                let page = 1;
+                const total = Math.max(1, Math.ceil(products.length / perPage));
 
-                function renderPage(page) {
-                    currentPage = Math.max(1, Math.min(totalPages, page));
-                    featuredContainer.innerHTML = '';
-                    const start = (currentPage - 1) * itemsPerPage;
-                    const pageItems = products.slice(start, start + itemsPerPage);
-                    pageItems.forEach(item => {
-                        featuredContainer.innerHTML += `
-                            <div class="col-6 col-md-6 col-lg-3">
-                                <div class="card h-100 shadow-sm border-0">
-                                    <img src="${item.image}" class="card-img-top" alt="${item.name}">
-                                    <div class="card-body text-center d-flex flex-column">
-                                        <h5 class="card-title">${item.name}</h5>
-                                        <p class="text-muted small flex-grow-1">${item.specs}</p>
-                                        <h5 class="text-danger fw-bold">${item.price}</h5>
-                                        <a href="./detail.html?id=${item.id}" class="btn btn-danger btn-sm mt-auto">
-                                            <i class="bi bi-info-circle me-1"></i>Chi tiết
-                                        </a>
-                                    </div>
+                function render(p) {
+                    page = Math.max(1, Math.min(total, p));
+                    const start = (page - 1) * perPage;
+                    const items = products.slice(start, start + perPage);
+
+                    grid.innerHTML = items.map(item => `
+                        <div class="featured-card">
+                            <div class="card-img-wrap">
+                                <img src="${item.image}" alt="${item.name}" loading="lazy">
+                                <div class="quick-actions">
+                                    <a href="./detail.html?id=${item.id}" class="btn-view" style="flex:1;padding:6px 8px;border-radius:8px;font-size:0.72rem;font-weight:600;text-align:center;text-decoration:none;background:rgba(255,255,255,0.9);color:var(--text-primary,#1a1a2e);transition:all 0.3s;"><i class="bi bi-eye"></i> Chi tiết</a>
+                                    <a href="#" class="btn-cart" style="flex:1;padding:6px 8px;border-radius:8px;font-size:0.72rem;font-weight:600;text-align:center;text-decoration:none;background:var(--brand,#cc0000);color:#fff;transition:all 0.3s;" data-addcart='${JSON.stringify({ id: item.id, image: item.image, name: item.name, specs: item.specs, price: item.price }).replace(/'/g, '&#39;')}'><i class="bi bi-cart-plus"></i> Thêm</a>
                                 </div>
                             </div>
-                        `;
+                            <div class="card-body">
+                                <div class="card-name">${item.name}</div>
+                                <div class="card-specs">${item.specs}</div>
+                                <div class="card-price">${item.price}</div>
+                            </div>
+                        </div>
+                    `).join('') || '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);">Không có sản phẩm.</p>';
+
+                    let h = '';
+                    h += `<li class="page-item ${page <= 1 ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${page - 1}"><i class="bi bi-chevron-left"></i></a></li>`;
+                    const maxB = 5;
+                    let s = Math.max(1, page - Math.floor(maxB / 2));
+                    let e = Math.min(total, s + maxB - 1);
+                    if (e - s < maxB - 1) s = Math.max(1, e - maxB + 1);
+                    for (let i = s; i <= e; i++)
+                        h += `<li class="page-item ${i === page ? 'active' : ''}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+                    h += `<li class="page-item ${page >= total ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${page + 1}"><i class="bi bi-chevron-right"></i></a></li>`;
+                    pag.innerHTML = h;
+
+                    document.querySelectorAll('#featuredGrid [data-addcart]').forEach(el => {
+                        el.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            try { addToCart(JSON.parse(this.dataset.addcart)); } catch (_) { }
+                        });
                     });
-                    renderPagination();
                 }
 
-                function renderPagination(){
-                    if (totalPages <= 1) { paginationContainer.innerHTML = ''; return; }
-                    let html = '';
-                    html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${currentPage-1}">&laquo;</a></li>`;
-                    const maxButtons = 5;
-                    let startPage = Math.max(1, currentPage - Math.floor(maxButtons/2));
-                    let endPage = Math.min(totalPages, startPage + maxButtons - 1);
-                    if (endPage - startPage < maxButtons - 1) startPage = Math.max(1, endPage - maxButtons + 1);
-                    for (let p = startPage; p <= endPage; p++) {
-                        html += `<li class="page-item ${p === currentPage ? 'active' : ''}"><a class="page-link" href="#" data-page="${p}">${p}</a></li>`;
-                    }
-                    html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${currentPage+1}">&raquo;</a></li>`;
-                    paginationContainer.innerHTML = html;
-                }
-
-                paginationContainer.addEventListener('click', function(e){
+                pag.addEventListener('click', function (e) {
                     const a = e.target.closest('a.page-link');
                     if (!a) return;
                     e.preventDefault();
-                    const page = parseInt(a.getAttribute('data-page'), 10);
-                    if (!isNaN(page)) renderPage(page);
+                    const p = parseInt(a.dataset.page, 10);
+                    if (!isNaN(p)) render(p);
                 });
 
-                // Initialize
-                renderPage(1);
+                render(1);
             })();
         </script>
 
-        <!-- CTA1 -->
-        <section class="container mt-5">
-
-            <div class="cta-section-1">
-
-                <div class="row align-items-center g-4">
-
-                    <!-- Nội dung -->
-                    <div class="col-lg-6">
-
-                        <h2 class="fw-bold mb-3">
-                            ThinkPad - Đẳng cấp doanh nhân
-                        </h2>
-
-                        <p class="lead text-secondary mb-4">
-                            Khám phá những dòng ThinkPad mới nhất với hiệu năng mạnh mẽ,
-                            độ bền chuẩn quân đội và thiết kế chuyên nghiệp.
-                        </p>
-
-                        <div class="d-flex gap-3 flex-wrap">
-                            <a href="./products.html" class="btn btn-danger px-4">
-                                <i class="bi bi-box me-1"></i>Xem sản phẩm
-                            </a>
-
-                            <a href="./contact.html" class="btn btn-outline-danger px-4">
-                                <i class="bi bi-chat-dots me-1"></i>Tư vấn ngay
-                            </a>
+        <!-- ─── CTA 1 ─── -->
+        <section class="cta-1-section">
+            <div class="container">
+                <div class="cta-1-wrap">
+                    <div class="cta-1-content">
+                        <h2>ThinkPad – Đẳng cấp doanh nhân</h2>
+                        <p>Khám phá những dòng ThinkPad mới nhất với hiệu năng mạnh mẽ, độ bền chuẩn quân đội và thiết kế chuyên nghiệp dành cho công việc đỉnh cao.</p>
+                        <div class="cta-buttons">
+                            <a href="./products.html" class="btn-cta primary"><i class="bi bi-box"></i> Xem sản phẩm</a>
+                            <a href="./contact.html" class="btn-cta secondary"><i class="bi bi-chat-dots"></i> Tư vấn ngay</a>
                         </div>
-
                     </div>
-
-                    <!-- Video -->
-                    <div class="col-lg-6">
+                    <div class="cta-1-media">
                         <video autoplay muted loop playsinline>
                             <source src="./assets/image/CTA.mp4" type="video/mp4">
                         </video>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-        <!-- Banner -->
-        <section class="container mt-5">
-            <div class="row g-4" id="banner-section"></div>
+        <!-- ─── Banners ─── -->
+        <section class="banners-section">
+            <div class="container">
+                <div class="row g-4" id="bannerGrid"></div>
+            </div>
         </section>
 
         <script>
-            // --- BANNER 3 CỘT ---
-            const bannerContainer = document.getElementById("banner-section");
-
-            // Fallback if `bannerData` is not defined
+            const bannerGrid = document.getElementById("bannerGrid");
             const banners = (typeof bannerData !== 'undefined' && Array.isArray(bannerData)) ? bannerData : [
                 { image: './assets/image/cate.jpg', title: 'Khuyến mãi', desc: 'Ưu đãi hấp dẫn cho khách hàng.' },
                 { image: './assets/image/cate.jpg', title: 'Sản phẩm mới', desc: 'Các mẫu ThinkPad mới nhất.' },
                 { image: './assets/image/cate.jpg', title: 'Bảo hành', desc: 'Hỗ trợ và bảo hành chính hãng.' }
             ];
-
             banners.forEach((item) => {
-                bannerContainer.innerHTML += `
+                bannerGrid.innerHTML += `
                     <div class="col-6 col-md-6 col-lg-4">
-                        <div class="banner-card">
-                            <img src="${item.image}" alt="${item.title}">
-                            <div class="banner-content">
-                                <h3>${item.title}</h3>
+                        <a href="./products.html" class="banner-card">
+                            <img src="${item.image}" alt="${item.title}" loading="lazy">
+                            <div class="banner-overlay">
+                                <h4>${item.title}</h4>
                                 <p>${item.desc}</p>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 `;
             });
         </script>
 
-        <!--CTA2-->
-        <section class="container-fluid mt-5">
-            <div class="cta-section-2">
-                <div class="banner-cta-2">
-                    <video autoplay muted loop playsinline>
-                        <source src="./assets/image/CTA2.mp4" type="video/mp4">
-                    </video>
-                    <div class="banner-content">
-                        <h1 class="fw-bold">
-                            Khám Phá Thế Giới ThinkPad
-                        </h1>
-
-                        <p class="lead">
-                            Hiệu năng mạnh mẽ, thiết kế bền bỉ và công nghệ tiên tiến dành cho học tập, làm việc và
-                            sáng
-                            tạo.
-                        </p>
-
-                        <a href="./products.html" class="btn btn-danger px-4 py-2">
-                            <i class="bi bi-cart me-1"></i>Mua Ngay
-                        </a>
-                    </div>
-                </div>
+        <!-- ─── CTA 2 (full-width) ─── -->
+        <section class="cta-2-section">
+            <video autoplay muted loop playsinline>
+                <source src="./assets/image/CTA2.mp4" type="video/mp4">
+            </video>
+            <div class="cta-2-overlay"></div>
+            <div class="cta-2-content">
+                <h2>Khám Phá Thế Giới ThinkPad</h2>
+                <p>Hiệu năng mạnh mẽ, thiết kế bền bỉ và công nghệ tiên tiến dành cho học tập, làm việc và sáng tạo.</p>
+                <a href="./products.html" class="btn-cta2"><i class="bi bi-cart"></i> Mua Ngay</a>
             </div>
         </section>
     </main>
+
     <!-- Footer -->
     <footer class="bg-black text-light pt-5 pb-3 mt-5" id="footer-container"></footer>
     <script>
         const footerContainer = document.getElementById("footer-container");
-
         const footerHTML = `
             <div class="container">
                 <div class="row g-4">
@@ -424,11 +391,9 @@
                 </div>
             </div>
         `;
-
         footerContainer.innerHTML = footerHTML;
     </script>
     <script src="./bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>

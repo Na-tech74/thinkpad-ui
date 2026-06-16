@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThinkPad Shop</title>
+    <title>Chi tiết sản phẩm - ThinkPad Shop</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css">
@@ -12,7 +15,6 @@
     <link rel="stylesheet" href="./assets/style/footer.css">
     <link rel="stylesheet" href="./assets/style/detail.css">
 </head>
-
 <body>
     <!--Header-->
     <header class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
@@ -23,44 +25,42 @@
 
             <div class="d-flex align-items-center gap-2 ms-auto order-lg-3">
                 <div class="dropdown">
-                    <a class="nav-link dropdown-toggle text-light px-2" href="#" role="button"
-                        data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle text-light px-2 position-relative" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell fs-6"></i>
+                        <span class="badge bg-danger rounded-pill position-absolute notif-badge" style="font-size:0.6rem;top:-1px;right:-2px;display:none;">0</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end notif-dropdown">
+                        <li><span class="dropdown-item-text text-muted small">Không có thông báo</span></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle text-light px-2" href="#" role="button" data-bs-toggle="dropdown">
                         <i class="bi bi-person fs-6"></i> <span class="d-none d-sm-inline">Tài khoản</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="./login.html">Đăng nhập</a></li>
                         <li><a class="dropdown-item" href="./register.html">Đăng ký</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item text-danger" href="#"
-                                onclick="logoutUser();location.reload();return false;">Đăng xuất</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="logoutUser();location.reload();return false;">Đăng xuất</a></li>
                     </ul>
                 </div>
                 <a href="./cart.html" class="nav-link text-light px-2 position-relative">
                     <i class="bi bi-cart3 fs-6"></i>
-                    <span class="badge bg-danger rounded-pill position-absolute cart-badge"
-                        style="font-size:0.65rem;top:-2px;right:-4px;display:none;">0</span>
+                    <span class="badge bg-danger rounded-pill position-absolute cart-badge" style="font-size:0.65rem;top:-2px;right:-4px;display:none;">0</span>
                     <span class="d-none d-sm-inline ms-1">Giỏ hàng</span>
                 </a>
             </div>
 
-            <button class="navbar-toggler order-lg-4" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarMenu">
+            <button class="navbar-toggler order-lg-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse order-lg-2" id="navbarMenu">
                 <ul class="navbar-nav mx-auto" id="mainMenu"></ul>
                 <script>
-                    // ===== inlined homedb.js =====
-                    const menuItems = [{ href: "./index.html", text: "Trang chủ" }, { href: "./products.html", text: "Sản phẩm" }, { href: "./about.html", text: "Giới thiệu" }, { href: "./contact.html", text: "Liên hệ" }];
-                    const categorise = [{ title: "ThinkPad X1", content: "Cao cấp, siêu nhẹ, cho doanh nhân.", image: "./assets/image/cate.jpg" }, { title: "ThinkPad T Series", content: "Văn phòng, lập trình, pin bền.", image: "./assets/image/cate.jpg" }, { title: "ThinkPad P Series", content: "Workstation cho đồ họa và kỹ thuật.", image: "./assets/image/cate.jpg" }, { title: "ThinkPad E Series", content: "Giá tốt cho sinh viên và văn phòng.", image: "./assets/image/cate.jpg" }];
-                    const carouselData = [{ image: "./assets/image/carousel1.jpg", title: "ThinkPad X1 Carbon Gen 12", subtitle: "Siêu nhẹ · Bền bỉ · Hiệu năng đỉnh cao", active: true }, { image: "./assets/image/carousel2.jpg", title: "ThinkPad T Series 2025", subtitle: "Ổn định · Chuyên nghiệp · Giá tốt", active: false }, { image: "./assets/image/carousel3.jpg", title: "ThinkPad P Series Workstation", subtitle: "Đồ họa mạnh · Chuẩn kỹ sư · Hiệu năng workstation", active: false }];
-                    const featuredProducts = [{ image: "./assets/image/cate.jpg", name: "ThinkPad X1 Carbon", specs: "Intel Core Ultra 7 · 32GB RAM · 1TB SSD", price: "39.990.000₫", id: "x1-carbon-gen12" }, { image: "./assets/image/cate.jpg", name: "ThinkPad T14s Gen 5", specs: "AMD Ryzen 7 · 16GB RAM · 512GB SSD", price: "28.500.000₫", id: "t14s-gen5" }, { image: "./assets/image/cate.jpg", name: "ThinkPad E16 Gen 2", specs: "Intel Core i7 · 16GB RAM · 512GB SSD", price: "22.990.000₫", id: "e16-gen2" }, { image: "./assets/image/cate.jpg", name: "ThinkPad P16s Gen 3", specs: "AMD Ryzen 9 · 32GB RAM · 1TB SSD", price: "45.000.000₫", id: "p16s-gen3" }];
-                    const footerData = { brand: { name: 'ThinkPad', suffix: 'Shop', desc: 'Chuyên cung cấp các dòng ThinkPad chính hãng với chất lượng cao, bảo hành uy tín và dịch vụ hỗ trợ tận tâm.', socials: [{ icon: 'bi-facebook', href: '#' }, { icon: 'bi-youtube', href: '#' }, { icon: 'bi-instagram', href: '#' }, { icon: 'bi-github', href: '#' }] }, navigation: { title: 'Điều hướng', links: [{ href: './index.html', text: 'Trang chủ' }, { href: './products.html', text: 'Sản phẩm' }, { href: './about.html', text: 'Giới thiệu' }, { href: './contact.html', text: 'Liên hệ' }] }, support: { title: 'Hỗ trợ khách hàng', links: [{ href: '#', text: 'Chính sách bảo hành' }, { href: '#', text: 'Đổi trả sản phẩm' }, { href: '#', text: 'Hướng dẫn mua hàng' }, { href: '#', text: 'Câu hỏi thường gặp' }] }, contact: { title: 'Liên hệ', items: [{ icon: 'bi-geo-alt-fill', text: 'TP. Hồ Chí Minh, Việt Nam' }, { icon: 'bi-telephone-fill', text: '0123 456 789' }, { icon: 'bi-envelope-fill', text: 'support@thinkpadshop.com' }] }, copyright: '© 2026 ThinkPad Shop. Design by Nam Nguyễn.', builtWith: 'Built with Bootstrap 5' };
-                    function isLoggedIn() { return localStorage.getItem('thinkpad_logged_in') === 'true' } function loginUser() { localStorage.setItem('thinkpad_logged_in', 'true') } function logoutUser() { localStorage.removeItem('thinkpad_logged_in') } function getCart() { try { return JSON.parse(localStorage.getItem('thinkpad_cart')) || [] } catch { return [] } } function saveCart(cart) { localStorage.setItem('thinkpad_cart', JSON.stringify(cart)) } function addToCart(product) { const cart = getCart(); const existing = cart.find(item => item.id === product.id); if (existing) { existing.qty += product.qty || 1 } else { cart.push({ id: product.id, image: product.image, name: product.name, specs: product.specs, price: typeof product.price === 'string' ? parsePrice(product.price) : product.price, qty: product.qty || 1 }) } saveCart(cart); alert('Đã thêm vào giỏ hàng!'); updateCartBadge() } function updateCartBadge() { const cart = getCart(); const count = cart.reduce((sum, item) => sum + item.qty, 0); document.querySelectorAll('.cart-badge').forEach(el => { el.textContent = count; el.style.display = count > 0 ? 'inline' : 'none' }) } function parsePrice(str) { return parseInt(String(str).replace(/[.\s₫]/g, '')) } function fmtPrice(num) { return Number(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫' }
-                    // ===== end inlined homedb.js =====
+const menuItems=[{href:"./index.html",text:"Trang chủ"},{href:"./products.html",text:"Sản phẩm"},{href:"./about.html",text:"Giới thiệu"},{href:"./contact.html",text:"Liên hệ"}];
+const footerData={brand:{name:'ThinkPad',suffix:'Shop',desc:'Chuyên cung cấp các dòng ThinkPad chính hãng với chất lượng cao, bảo hành uy tín và dịch vụ hỗ trợ tận tâm.',socials:[{icon:'bi-facebook',href:'#'},{icon:'bi-youtube',href:'#'},{icon:'bi-instagram',href:'#'},{icon:'bi-github',href:'#'}]},navigation:{title:'Điều hướng',links:[{href:'./index.html',text:'Trang chủ'},{href:'./products.html',text:'Sản phẩm'},{href:'./about.html',text:'Giới thiệu'},{href:'./contact.html',text:'Liên hệ'}]},support:{title:'Hỗ trợ khách hàng',links:[{href:'#',text:'Chính sách bảo hành'},{href:'#',text:'Đổi trả sản phẩm'},{href:'#',text:'Hướng dẫn mua hàng'},{href:'#',text:'Câu hỏi thường gặp'}]},contact:{title:'Liên hệ',items:[{icon:'bi-geo-alt-fill',text:'TP. Hồ Chí Minh, Việt Nam'},{icon:'bi-telephone-fill',text:'0123 456 789'},{icon:'bi-envelope-fill',text:'support@thinkpadshop.com'}]},copyright:'© 2026 ThinkPad Shop. Design by Nam Nguyễn.',builtWith:'Built with Bootstrap 5'};
+function isLoggedIn(){return localStorage.getItem('thinkpad_logged_in')==='true'}function loginUser(){localStorage.setItem('thinkpad_logged_in','true')}function logoutUser(){localStorage.removeItem('thinkpad_logged_in')}function getCart(){try{return JSON.parse(localStorage.getItem('thinkpad_cart'))||[]}catch{return[]}}function saveCart(cart){localStorage.setItem('thinkpad_cart',JSON.stringify(cart))}function addToCart(product){const cart=getCart();const existing=cart.find(item=>item.id===product.id);if(existing){existing.qty+=product.qty||1}else{cart.push({id:product.id,image:product.image,name:product.name,specs:product.specs,price:typeof product.price==='string'?parsePrice(product.price):product.price,qty:product.qty||1})}saveCart(cart);alert('Đã thêm vào giỏ hàng!');updateCartBadge()}function updateCartBadge(){const cart=getCart();const count=cart.reduce((sum,item)=>sum+item.qty,0);document.querySelectorAll('.cart-badge').forEach(el=>{el.textContent=count;el.style.display=count>0?'inline':'none'})}function parsePrice(str){return parseInt(String(str).replace(/[.\s₫]/g,''))}function fmtPrice(num){return Number(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')+'₫'}
                 </script>
                 <script>
                     const mainMenu = document.getElementById("mainMenu");
@@ -81,18 +81,33 @@
         </div>
     </header>
 
-    <main>
-        <div class="detail-wrapper" id="detail-container"></div>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-wrap">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="./index.html"><i class="bi bi-house me-1"></i>Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="./products.html">Sản phẩm</a></li>
+                    <li class="breadcrumb-item active" id="bc-product">Chi tiết sản phẩm</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <main class="detail-wrap">
+        <div class="product-section" id="detail-container"></div>
         <script src="./data/productsPageData.js"></script>
     </main>
+
     <script>
         const detailContainer = document.getElementById("detail-container");
-
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
         const product = productsPageData.products.find(p => p.id === productId) || productsPageData.products[0];
 
-        const badge = product.badge ? `<span class="badge bg-danger position-absolute top-0 start-0 m-3" style="z-index:5;">${product.badge}</span>` : '';
+        document.getElementById('bc-product').textContent = product.name;
+
+        const badge = product.badge ? `<span class="badge-floating">${product.badge}</span>` : '';
         const oldPrice = product.oldPrice && product.oldPrice !== '0'
             ? `<span class="old-price">${product.oldPrice}</span>` : '';
 
@@ -100,91 +115,81 @@
         const carouselId = 'productCarousel';
         const carouselItems = images.map((img, i) => `
             <div class="carousel-item ${i === 0 ? 'active' : ''}">
-                <img src="${img}" class="d-block w-100" alt="${product.name} - ${i + 1}" style="background:#fafafa;padding:40px;max-height:450px;object-fit:contain;">
+                <img src="${img}" alt="${product.name} - ${i + 1}">
             </div>
         `).join('');
         const carouselIndicators = images.map((_, i) => `
             <button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}"></button>
         `).join('');
         const thumbnails = images.map((img, i) => `
-            <img src="${img}" class="img-thumbnail thumb-slide ${i === 0 ? 'border-danger' : ''}" alt="" data-slide="${i}" style="height:60px;width:auto;cursor:pointer;object-fit:contain;padding:6px;">
+            <img src="${img}" class="${i === 0 ? 'active' : ''}" alt="" data-slide="${i}">
         `).join('');
 
         const carouselHtml = `
-            <div id="${carouselId}" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    ${carouselIndicators}
-                </div>
-                <div class="carousel-inner rounded-3">${carouselItems}</div>
+            <div id="${carouselId}" class="carousel slide">
+                <div class="carousel-indicators">${carouselIndicators}</div>
+                <div class="carousel-inner">${carouselItems}</div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark rounded-1"></span>
+                    <span class="carousel-control-prev-icon"></span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-dark rounded-1"></span>
+                    <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
-            <div class="d-flex gap-2 mt-2 flex-wrap justify-content-center">${thumbnails}</div>
+            <div class="thumb-list">${thumbnails}</div>
         `;
 
         detailContainer.innerHTML = `
             <div class="container">
-                <nav aria-label="breadcrumb" class="mb-3">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="./index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item"><a href="./products.html">Sản phẩm</a></li>
-                        <li class="breadcrumb-item active">${product.name}</li>
-                    </ol>
-                </nav>
-
                 <div class="row g-4">
                     <div class="col-lg-6">
-                        <div class="position-relative">
+                        <div class="product-gallery position-relative">
                             ${badge}
                             ${carouselHtml}
                         </div>
                     </div>
-
                     <div class="col-lg-6">
-                        <p class="text-muted small mb-1">${product.series}</p>
-                        <h2 class="fw-bold mb-2">${product.name}</h2>
-                        <p class="text-muted mb-3">${product.specs}</p>
+                        <div class="product-info">
+                            <p class="product-series">${product.series || ''}</p>
+                            <h2>${product.name}</h2>
+                            <p class="product-specs">${product.specs}</p>
 
-                        <div class="mb-3">
-                            ${oldPrice}<span class="current-price" id="totalPrice">${product.price}</span>
-                            <span class="text-muted small ms-2" id="qtyLabel">x 1</span>
-                        </div>
-
-                        <p class="mb-4">${product.desc}</p>
-
-                        <div class="d-flex gap-3 mb-4">
-                            <div class="quantity-control d-flex align-items-center border rounded">
-                                <button class="btn btn-link text-dark px-2" onclick="changeQty(-1)">−</button>
-                                <span class="px-3 fw-bold" id="qty">1</span>
-                                <button class="btn btn-link text-dark px-2" onclick="changeQty(1)">+</button>
+                            <div class="product-price-area">
+                                ${oldPrice}<span class="current-price" id="totalPrice">${product.price}</span>
+                                <span class="text-muted small ms-2" id="qtyLabel">× 1</span>
                             </div>
-                            <a href="#" class="btn btn-danger flex-fill" onclick="addToCart({id:'${product.id}',image:'${product.image}',name:'${product.name}',specs:'${product.specs}',price:'${product.price}',qty:parseInt(document.getElementById('qty').textContent)});return false;">
-                                <i class="bi bi-cart-plus me-1"></i>Thêm vào giỏ hàng
-                            </a>
-                        </div>
 
-                        <div class="border-top pt-3">
-                            <p class="small text-muted mb-1"><i class="bi bi-truck me-1"></i>Miễn phí giao hàng toàn quốc</p>
-                            <p class="small text-muted mb-1"><i class="bi bi-shield-check me-1"></i>Bảo hành chính hãng 12 tháng</p>
-                            <p class="small text-muted mb-0"><i class="bi bi-arrow-return-left me-1"></i>Đổi trả 30 ngày</p>
+                            <p class="product-desc">${product.desc}</p>
+
+                            <div class="product-actions">
+                                <div class="qty-box">
+                                    <button onclick="changeQty(-1)">−</button>
+                                    <span id="qty">1</span>
+                                    <button onclick="changeQty(1)">+</button>
+                                </div>
+                                <a href="#" class="btn-add-cart" onclick="addToCart({id:'${product.id}',image:'${product.image}',name:'${product.name}',specs:'${product.specs}',price:'${product.price}',qty:parseInt(document.getElementById('qty').textContent)});return false;">
+                                    <i class="bi bi-cart-plus"></i>Thêm vào giỏ hàng
+                                </a>
+                            </div>
+
+                            <div class="service-bar">
+                                <span><i class="bi bi-truck"></i>Miễn phí giao hàng toàn quốc</span>
+                                <span><i class="bi bi-shield-check"></i>Bảo hành chính hãng 12 tháng</span>
+                                <span><i class="bi bi-arrow-return-left"></i>Đổi trả 30 ngày</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         `;
 
-        document.querySelectorAll('.thumb-slide').forEach(el => {
+        document.querySelectorAll('.thumb-list img').forEach(el => {
             el.addEventListener('click', function () {
                 const idx = this.dataset.slide;
                 const btn = document.querySelector(`#${carouselId} [data-bs-slide-to="${idx}"]`);
                 if (btn) btn.click();
-                document.querySelectorAll('.thumb-slide').forEach(t => t.classList.remove('border-danger'));
-                this.classList.add('border-danger');
+                document.querySelectorAll('.thumb-list img').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
             });
         });
 
@@ -196,7 +201,7 @@
             if (val < 1) val = 1;
             el.textContent = val;
             document.getElementById('totalPrice').textContent = fmtPrice(basePrice * val);
-            document.getElementById('qtyLabel').textContent = `x ${val}`;
+            document.getElementById('qtyLabel').textContent = `× ${val}`;
         }
     </script>
 
@@ -248,5 +253,4 @@
     </script>
     <script src="./bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

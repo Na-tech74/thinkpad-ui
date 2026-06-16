@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThinkPad Shop</title>
+    <title>Giới thiệu - ThinkPad Shop</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css">
@@ -14,6 +19,7 @@
 </head>
 
 <body>
+    <!--Header-->
     <!--Header-->
     <header class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
         <div class="container">
@@ -37,6 +43,29 @@
                                 onclick="logoutUser();location.reload();return false;">Đăng xuất</a></li>
                     </ul>
                 </div>
+                <div class="dropdown">
+                    <a class="nav-link text-light px-2 position-relative" href="#" role="button"
+                        data-bs-toggle="dropdown">
+                        <i class="bi bi-bell fs-6"></i>
+                        <span class="badge bg-danger rounded-pill position-absolute notif-badge"
+                            style="font-size:0.6rem;top:-2px;right:-2px;">3</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" style="min-width:280px;">
+                        <li>
+                            <h6 class="dropdown-header">Thông báo</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="#"><small class="text-muted">ThinkPad X1 Carbon vừa được cập
+                                    nhật giá mới</small></a></li>
+                        <li><a class="dropdown-item" href="#"><small class="text-muted">Khuyến mãi đặc biệt dòng T
+                                    Series</small></a></li>
+                        <li><a class="dropdown-item" href="#"><small class="text-muted">Bảo hành mở rộng cho P
+                                    Series</small></a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-center small" href="#">Xem tất cả</a></li>
+                    </ul>
+                </div>
                 <a href="./cart.html" class="nav-link text-light px-2 position-relative">
                     <i class="bi bi-cart3 fs-6"></i>
                     <span class="badge bg-danger rounded-pill position-absolute cart-badge"
@@ -53,19 +82,43 @@
             <div class="collapse navbar-collapse order-lg-2" id="navbarMenu">
                 <ul class="navbar-nav mx-auto" id="mainMenu"></ul>
                 <script>
-                    // ===== inlined homedb.js =====
                     const menuItems = [
                         { href: "./index.html", text: "Trang chủ" },
                         { href: "./products.html", text: "Sản phẩm" },
                         { href: "./about.html", text: "Giới thiệu" },
                         { href: "./contact.html", text: "Liên hệ" }
                     ];
-                    const categorise = [{ title: "ThinkPad X1", content: "Cao cấp, siêu nhẹ, cho doanh nhân.", image: "./assets/image/cate.jpg" }, { title: "ThinkPad T Series", content: "Văn phòng, lập trình, pin bền.", image: "./assets/image/cate.jpg" }, { title: "ThinkPad P Series", content: "Workstation cho đồ họa và kỹ thuật.", image: "./assets/image/cate.jpg" }, { title: "ThinkPad E Series", content: "Giá tốt cho sinh viên và văn phòng.", image: "./assets/image/cate.jpg" }];
-                    const carouselData = [{ image: "./assets/image/carousel1.jpg", title: "ThinkPad X1 Carbon Gen 12", subtitle: "Siêu nhẹ · Bền bỉ · Hiệu năng đỉnh cao", active: true }, { image: "./assets/image/carousel2.jpg", title: "ThinkPad T Series 2025", subtitle: "Ổn định · Chuyên nghiệp · Giá tốt", active: false }, { image: "./assets/image/carousel3.jpg", title: "ThinkPad P Series Workstation", subtitle: "Đồ họa mạnh · Chuẩn kỹ sư · Hiệu năng workstation", active: false }];
-                    const featuredProducts = [{ image: "./assets/image/cate.jpg", name: "ThinkPad X1 Carbon", specs: "Intel Core Ultra 7 · 32GB RAM · 1TB SSD", price: "39.990.000₫", id: "x1-carbon-gen12" }, { image: "./assets/image/cate.jpg", name: "ThinkPad T14s Gen 5", specs: "AMD Ryzen 7 · 16GB RAM · 512GB SSD", price: "28.500.000₫", id: "t14s-gen5" }, { image: "./assets/image/cate.jpg", name: "ThinkPad E16 Gen 2", specs: "Intel Core i7 · 16GB RAM · 512GB SSD", price: "22.990.000₫", id: "e16-gen2" }, { image: "./assets/image/cate.jpg", name: "ThinkPad P16s Gen 3", specs: "AMD Ryzen 9 · 32GB RAM · 1TB SSD", price: "45.000.000₫", id: "p16s-gen3" }];
+                    const categorise = [
+                        { title: "ThinkPad X1", content: "Cao cấp, siêu nhẹ, cho doanh nhân.", image: "./assets/image/cate.jpg" },
+                        { title: "ThinkPad T Series", content: "Văn phòng, lập trình, pin bền.", image: "./assets/image/cate.jpg" },
+                        { title: "ThinkPad P Series", content: "Workstation cho đồ họa và kỹ thuật.", image: "./assets/image/cate.jpg" },
+                        { title: "ThinkPad E Series", content: "Giá tốt cho sinh viên và văn phòng.", image: "./assets/image/cate.jpg" }
+                    ];
+                    const carouselData = [
+                        { image: "./assets/image/carousel1.jpg", title: "ThinkPad X1 Carbon Gen 12", subtitle: "Siêu nhẹ · Bền bỉ · Hiệu năng đỉnh cao", active: true },
+                        { image: "./assets/image/carousel2.jpg", title: "ThinkPad T Series 2025", subtitle: "Ổn định · Chuyên nghiệp · Giá tốt", active: false },
+                        { image: "./assets/image/carousel3.jpg", title: "ThinkPad P Series Workstation", subtitle: "Đồ họa mạnh · Chuẩn kỹ sư · Hiệu năng workstation", active: false }
+                    ];
+                    const featuredProducts = [
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad X1 Carbon", specs: "Intel Core Ultra 7 · 32GB RAM · 1TB SSD", price: "39.990.000₫", id: "x1-carbon-gen12" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad T14s Gen 5", specs: "AMD Ryzen 7 · 16GB RAM · 512GB SSD", price: "28.500.000₫", id: "t14s-gen5" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad E16 Gen 2", specs: "Intel Core i7 · 16GB RAM · 512GB SSD", price: "22.990.000₫", id: "e16-gen2" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad P16s Gen 3", specs: "AMD Ryzen 9 · 32GB RAM · 1TB SSD", price: "45.000.000₫", id: "p16s-gen3" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad X1 Yoga Gen 4", specs: "Intel Core i7 · 16GB RAM · 512GB SSD", price: "34.500.000₫", id: "x1-yoga-gen4" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad T14 Gen 12", specs: "Intel Core i7 · 16GB RAM · 512GB SSD", price: "29.990.000₫", id: "t14-gen12" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad P1 Gen 5", specs: "Intel Xeon · 64GB RAM · 4TB SSD", price: "129.990.000₫", id: "p1-gen5" },
+                        { image: "./assets/image/cate.jpg", name: "ThinkPad E14 Gen 4", specs: "AMD Ryzen 7 · 16GB RAM · 1TB SSD", price: "21.990.000₫", id: "e14-g4" }
+                    ];
                     const footerData = { brand: { name: 'ThinkPad', suffix: 'Shop', desc: 'Chuyên cung cấp các dòng ThinkPad chính hãng với chất lượng cao, bảo hành uy tín và dịch vụ hỗ trợ tận tâm.', socials: [{ icon: 'bi-facebook', href: '#' }, { icon: 'bi-youtube', href: '#' }, { icon: 'bi-instagram', href: '#' }, { icon: 'bi-github', href: '#' }] }, navigation: { title: 'Điều hướng', links: [{ href: './index.html', text: 'Trang chủ' }, { href: './products.html', text: 'Sản phẩm' }, { href: './about.html', text: 'Giới thiệu' }, { href: './contact.html', text: 'Liên hệ' }] }, support: { title: 'Hỗ trợ khách hàng', links: [{ href: '#', text: 'Chính sách bảo hành' }, { href: '#', text: 'Đổi trả sản phẩm' }, { href: '#', text: 'Hướng dẫn mua hàng' }, { href: '#', text: 'Câu hỏi thường gặp' }] }, contact: { title: 'Liên hệ', items: [{ icon: 'bi-geo-alt-fill', text: 'TP. Hồ Chí Minh, Việt Nam' }, { icon: 'bi-telephone-fill', text: '0123 456 789' }, { icon: 'bi-envelope-fill', text: 'support@thinkpadshop.com' }] }, copyright: '© 2026 ThinkPad Shop. Design by Nam Nguyễn.', builtWith: 'Built with Bootstrap 5' };
-                    function isLoggedIn() { return localStorage.getItem('thinkpad_logged_in') === 'true' } function loginUser() { localStorage.setItem('thinkpad_logged_in', 'true') } function logoutUser() { localStorage.removeItem('thinkpad_logged_in') } function getCart() { try { return JSON.parse(localStorage.getItem('thinkpad_cart')) || [] } catch { return [] } } function saveCart(cart) { localStorage.setItem('thinkpad_cart', JSON.stringify(cart)) } function addToCart(product) { const cart = getCart(); const existing = cart.find(item => item.id === product.id); if (existing) { existing.qty += product.qty || 1 } else { cart.push({ id: product.id, image: product.image, name: product.name, specs: product.specs, price: typeof product.price === 'string' ? parsePrice(product.price) : product.price, qty: product.qty || 1 }) } saveCart(cart); alert('Đã thêm vào giỏ hàng!'); updateCartBadge() } function updateCartBadge() { const cart = getCart(); const count = cart.reduce((sum, item) => sum + item.qty, 0); document.querySelectorAll('.cart-badge').forEach(el => { el.textContent = count; el.style.display = count > 0 ? 'inline' : 'none' }) } function parsePrice(str) { return parseInt(String(str).replace(/[.\s₫]/g, '')) } function fmtPrice(num) { return Number(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫' }
-                    // ===== end inlined homedb.js =====
+                    function isLoggedIn() { return localStorage.getItem('thinkpad_logged_in') === 'true' }
+                    function loginUser() { localStorage.setItem('thinkpad_logged_in', 'true') }
+                    function logoutUser() { localStorage.removeItem('thinkpad_logged_in') }
+                    function getCart() { try { return JSON.parse(localStorage.getItem('thinkpad_cart')) || [] } catch { return [] } }
+                    function saveCart(cart) { localStorage.setItem('thinkpad_cart', JSON.stringify(cart)) }
+                    function addToCart(product) { const cart = getCart(); const existing = cart.find(item => item.id === product.id); if (existing) { existing.qty += product.qty || 1 } else { cart.push({ id: product.id, image: product.image, name: product.name, specs: product.specs, price: typeof product.price === 'string' ? parsePrice(product.price) : product.price, qty: product.qty || 1 }) } saveCart(cart); alert('Đã thêm vào giỏ hàng!'); updateCartBadge() }
+                    function updateCartBadge() { const cart = getCart(); const count = cart.reduce((sum, item) => sum + item.qty, 0); document.querySelectorAll('.cart-badge').forEach(el => { el.textContent = count; el.style.display = count > 0 ? 'inline' : 'none' }) }
+                    function parsePrice(str) { return parseInt(String(str).replace(/[.\s₫]/g, '')) }
+                    function fmtPrice(num) { return Number(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '₫' }
                 </script>
                 <script>
                     const mainMenu = document.getElementById("mainMenu");
@@ -86,29 +139,44 @@
         </div>
     </header>
 
-    <main>
-        <div class="about-wrapper">
-            <div class="container py-2">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="./index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Giới thiệu</li>
-                    </ol>
-                </nav>
-            </div>
-            <div id="about-container"></div>
-            <script src="./data/aboutPageData.js"></script>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-wrap">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="./index.html"><i class="bi bi-house me-1"></i>Trang chủ</a>
+                    </li>
+                    <li class="breadcrumb-item active">Giới thiệu</li>
+                </ol>
+            </nav>
         </div>
+    </div>
+
+    <main class="about-wrap">
+        <!-- Hero -->
+        <section class="hero-section">
+            <div class="container">
+                <h1><i class="bi bi-info-circle-fill"></i>Về ThinkPad Shop</h1>
+                <p>Chúng tôi cung cấp ThinkPad chính hãng với dịch vụ tận tâm.</p>
+            </div>
+        </section>
+
+        <div id="about-container"></div>
+        <script src="./data/aboutPageData.js"></script>
     </main>
+
     <script>
         const aboutContainer = document.getElementById("about-container");
+
         const statsHtml = aboutPageData.stats.map(s =>
-            `<div class="stat-item">
+            `<div class="stat-card">
                 <i class="bi ${s.icon}"></i>
                 <span class="number">${s.number}</span>
                 <span class="label">${s.label}</span>
             </div>`
         ).join('');
+
         const valuesHtml = aboutPageData.values.map(v =>
             `<div class="col-6 col-md-3">
                 <div class="value-card">
@@ -121,19 +189,46 @@
 
         aboutContainer.innerHTML = `
             <div class="container">
-                <div class="text-center mb-5">
-                    <h2>${aboutPageData.title}</h2>
-                    <p class="text-muted">${aboutPageData.subtitle}</p>
-                </div>
-                <div class="row justify-content-center mb-5">
-                    <div class="col-lg-8 about-intro">
-                        <h4 class="fw-bold mb-3">${aboutPageData.intro.heading}</h4>
-                        ${aboutPageData.intro.paragraphs.map(p => `<p>${p}</p>`).join('')}
+                <!-- Intro -->
+                <section class="intro-section">
+                    <div class="row g-4 align-items-stretch">
+                        <div class="col-lg-6">
+                            <div class="intro-card">
+                                <h3><i class="bi bi-shield-check"></i>${aboutPageData.intro.heading}</h3>
+                                ${aboutPageData.intro.paragraphs.map(p => `<p>${p}</p>`).join('')}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="intro-image-wrap">
+                                <img src="./assets/image/cate.jpg" alt="ThinkPad Office" loading="lazy">
+                                <span class="intro-badge"><i class="bi bi-patch-check-fill"></i> Chính hãng 100%</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="about-stats mb-5">${statsHtml}</div>
-                <h4 class="fw-bold text-center mb-4">Giá trị cốt lõi</h4>
-                <div class="row g-3">${valuesHtml}</div>
+                </section>
+
+                <!-- Stats -->
+                <section class="stats-section">
+                    <div class="stats-grid">${statsHtml}</div>
+                </section>
+
+                <!-- Values -->
+                <section class="values-section">
+                    <div class="section-title">
+                        <h2>Giá trị cốt lõi</h2>
+                        <p>Những giá trị làm nên thương hiệu ThinkPad Shop</p>
+                    </div>
+                    <div class="row g-3">${valuesHtml}</div>
+                </section>
+
+                <!-- CTA -->
+                <section class="cta-section">
+                    <h3>Sẵn sàng trải nghiệm ThinkPad?</h3>
+                    <p>Khám phá bộ sưu tập ThinkPad mới nhất với ưu đãi hấp dẫn.</p>
+                    <a href="./products.html" class="btn-cta">
+                        <i class="bi bi-bag"></i>Khám phá ngay
+                    </a>
+                </section>
             </div>
         `;
     </script>
